@@ -1,0 +1,47 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./database.db"
+}
+
+model Bus {
+  id           Int    @id @default(autoincrement())
+  manufacturer String
+  model        String
+  fuel         String // DIESEL, BATTERY_ELECTRIC, CABLE_ELECTRIC
+  inventoryNum Int
+  licensePlate String
+  garageId     Int
+
+  // relation fields
+  garage Garage @relation(fields: [garageId], references: [id])
+}
+
+model Garage {
+  id            Int    @id @default(autoincrement())
+  name          String
+  location      String
+  buses         Bus[]
+  startingLines Line[] @relation("startGarage")
+  endingLines   Line[] @relation("endGarage")
+}
+
+model Line {
+  id              Int    @id @default(autoincrement())
+  name            String @unique
+  startName       String
+  endName         String
+  monthlyRidership Int
+  startGarageId   Int
+  endGarageId     Int
+
+  // relation fields
+  startGarage Garage @relation("startGarage", fields: [startGarageId], references: [id])
+  endGarage   Garage @relation("endGarage", fields: [endGarageId], references: [id])
+}

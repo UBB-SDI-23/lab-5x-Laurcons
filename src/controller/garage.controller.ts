@@ -13,6 +13,11 @@ export class GarageController {
     return this.garageService.findAll();
   }
 
+  @Get('biggestGarages')
+  async biggestGarages() {
+    return this.garageService.biggestGarages();
+  }
+
   @Get(':id')
   async findOne(@Param('id') id: string) {
     return this.garageService.findOne(parseInt(id));

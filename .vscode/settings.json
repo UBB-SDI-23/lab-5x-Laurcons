@@ -1,0 +1,10 @@
+{
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "driver": "SQLite",
+      "name": "mpp myapp",
+      "database": "~/ubb/mpp/myapp/prisma/database.db"
+    }
+  ]
+}

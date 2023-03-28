@@ -16,6 +16,11 @@ export class LineController {
     });
   }
 
+  @Get('longestLines')
+  async longestLines() {
+    return this.lineService.longestLines();
+  }
+
   @Get(':name')
   async findOne(@Param('name') name: string) {
     return this.lineService.findOne(name);

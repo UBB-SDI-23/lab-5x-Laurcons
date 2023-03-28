@@ -2,7 +2,8 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["filteredRelationCount"]
 }
 
 datasource db {
@@ -33,15 +34,48 @@ model Garage {
 }
 
 model Line {
-  id              Int    @id @default(autoincrement())
-  name            String @unique
-  startName       String
-  endName         String
+  id               Int    @id @default(autoincrement())
+  name             String @unique
+  startName        String
+  endName          String
   monthlyRidership Int
-  startGarageId   Int
-  endGarageId     Int
+  startGarageId    Int
+  endGarageId      Int
 
   // relation fields
-  startGarage Garage @relation("startGarage", fields: [startGarageId], references: [id])
-  endGarage   Garage @relation("endGarage", fields: [endGarageId], references: [id])
+  startGarage Garage     @relation("startGarage", fields: [startGarageId], references: [id])
+  endGarage   Garage     @relation("endGarage", fields: [endGarageId], references: [id])
+  lineStops   LineStop[]
+}
+
+model Station {
+  id            Int    @id @default(autoincrement())
+  name          String
+  stationSignId Int?
+
+  lineStops   LineStop[]
+  stationSign StationSign?
+}
+
+model LineStop {
+  id        Int @id @default(autoincrement())
+  stationId Int
+  lineId    Int
+
+  direction            String // TRIP, ROUND-TRIP
+  isServicedInWeekends Boolean
+
+  station Station @relation(fields: [stationId], references: [id])
+  line    Line    @relation(fields: [lineId], references: [id])
+}
+
+model StationSign {
+  id        Int @id @default(autoincrement())
+  stationId Int @unique
+
+  externalLinesInfo String
+  hasBothSides      Boolean
+  administration    String // CTP, PMCJ
+
+  station Station @relation(fields: [stationId], references: [id])
 }

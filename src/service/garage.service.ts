@@ -28,4 +28,17 @@ export class GarageService {
   async removeOne(id: number) {
     return this.prisma.garage.delete({ where: { id } });
   }
+
+  async biggestGarages() {
+    const garages = await this.prisma.garage.findMany({
+      include: {
+        _count: {
+          select: {
+            buses: true
+          }
+        }
+      }
+    });
+    return garages.sort((a, b) => a._count.buses < b._count.buses ? 1 : -1);
+  }
 }

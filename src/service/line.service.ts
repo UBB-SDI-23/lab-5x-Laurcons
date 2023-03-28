@@ -35,4 +35,18 @@ export class LineService {
   async removeOne(name: string) {
     return this.prisma.line.delete({ where: { name } });
   }
+
+  async longestLines() {
+    const lines = await this.prisma.line.findMany({
+      include: {
+        _count: {
+          select: {
+            lineStops: true
+          }
+        }
+      }
+    });
+    lines.sort((a, b) => a._count.lineStops < b._count.lineStops ? 1 : -1);
+    return lines;
+  }
 }

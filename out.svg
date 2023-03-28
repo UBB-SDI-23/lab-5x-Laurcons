@@ -1,0 +1,522 @@
+<svg version="1.1" baseProfile="full" width="3651.0" height="669.0" viewbox="0 0 3651 669" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events">
+<desc >#.interface: fill=lightblue
+#.enumeration: fill=lightgreen
+#.type: fill=lightgray
+[AppModule||]
+[BusController|-busService: BusService|+findAll(): Promise&lt;Bus\[\]&gt;;+findOne(): Promise&lt;Bus &amp; { garage: Garage; }&gt;;+create(): Promise&lt;Bus&gt;;+updateOne(): Promise&lt;Bus&gt;;+removeOne(): Promise&lt;Bus&gt;]
+[BusController]  -  [BusService]
+[GarageController|-garageService: GarageService|+findAll(): Promise&lt;Garage\[\]&gt;;+biggestGarages(): Promise&lt;(Garage &amp; { _count: { buses: number; }; })\[\]&gt;;+findOne(): Promise&lt;Garage &amp; { buses: Bus\[\]; startingLines: Line\[\]; endingLines: Line\[\]; }&gt;;+create(): Promise&lt;Garage&gt;;+updateOne(): Promise&lt;Garage&gt;;+removeOne(): Promise&lt;Garage&gt;]
+[GarageController]  -  [GarageService]
+[LineStopController|-lineStopService: LineStopService|+findAll(): Promise&lt;LineStop\[\]&gt;;+findOne(): Promise&lt;LineStop &amp; { line: Line; station: Station; }&gt;;+create(): Promise&lt;LineStop&gt;;+updateOne(): Promise&lt;LineStop&gt;;+removeOne(): Promise&lt;LineStop&gt;]
+[LineStopController]  -  [LineStopService]
+[LineController|-lineService: LineService|+findAll(): Promise&lt;Line\[\]&gt;;+longestLines(): Promise&lt;(Line &amp; { _count: { lineStops: number; }; })\[\]&gt;;+findOne(): Promise&lt;Line &amp; { startGarage: Garage; endGarage: Garage; }&gt;;+create(): Promise&lt;Line&gt;;+updateOne(): Promise&lt;Line&gt;;+removeOne(): Promise&lt;Line&gt;]
+[LineController]  -  [LineService]
+[StationSignController|-stationSignService: StationSignService|+findAll(): Promise&lt;StationSign\[\]&gt;;+findOne(): Promise&lt;StationSign &amp; { station: Station; }&gt;;+create(): Promise&lt;StationSign&gt;;+updateOne(): Promise&lt;StationSign&gt;;+removeOne(): Promise&lt;StationSign&gt;]
+[StationSignController]  -  [StationSignService]
+[StationController|-stationService: StationService|+findAll(): Promise&lt;Station\[\]&gt;;+findOne(): Promise&lt;Station &amp; { lineStops: (LineStop &amp; { line: Line; })\[\]; }&gt;;+create(): Promise&lt;Station&gt;;+updateOne(): Promise&lt;Station&gt;;+removeOne(): Promise&lt;Station&gt;]
+[StationController]  -  [StationService]
+[BusService|-prisma: PrismaService|+findAll(): Promise&lt;Bus\[\]&gt;;+findOne(): Promise&lt;Bus &amp; { garage: Garage; }&gt;;+create(): Promise&lt;Bus&gt;;+updateOne(): Promise&lt;Bus&gt;;+removeOne(): Promise&lt;Bus&gt;]
+[BusService]  -  [PrismaService]
+[GarageService|-prisma: PrismaService|+findAll(): Promise&lt;Garage\[\]&gt;;+findOne(): Promise&lt;Garage &amp; { buses: Bus\[\]; startingLines: Line\[\]; endingLines: Line\[\]; }&gt;;+create(): Promise&lt;Garage&gt;;+updateOne(): Promise&lt;Garage&gt;;+removeOne(): Promise&lt;Garage&gt;;+biggestGarages(): Promise&lt;(Garage &amp; { _count: { buses: number; }; })\[\]&gt;]
+[GarageService]  -  [PrismaService]
+[LineStopService|-prisma: PrismaService|+findAll(): Promise&lt;LineStop\[\]&gt;;+findOne(): Promise&lt;LineStop &amp; { line: Line; station: Station; }&gt;;+create(): Promise&lt;LineStop&gt;;+updateOne(): Promise&lt;LineStop&gt;;+removeOne(): Promise&lt;LineStop&gt;]
+[LineStopService]  -  [PrismaService]
+[LineService|-prisma: PrismaService|+findAll(): Promise&lt;Line\[\]&gt;;+findOne(): Promise&lt;Line &amp; { startGarage: Garage; endGarage: Garage; }&gt;;+create(): Promise&lt;Line&gt;;+updateOne(): Promise&lt;Line&gt;;+removeOne(): Promise&lt;Line&gt;;+longestLines(): Promise&lt;(Line &amp; { _count: { lineStops: number; }; })\[\]&gt;]
+[LineService]  -  [PrismaService]
+[PrismaService||]
+[PrismaClient&lt;T,U,GlobalReject&gt;]&lt;:-[PrismaService]
+[StationSignService|-prisma: PrismaService|+findAll(): Promise&lt;StationSign\[\]&gt;;+findOne(): Promise&lt;StationSign &amp; { station: Station; }&gt;;+create(): Promise&lt;StationSign&gt;;+updateOne(): Promise&lt;StationSign&gt;;+removeOne(): Promise&lt;StationSign&gt;]
+[StationSignService]  -  [PrismaService]
+[StationService|-prisma: PrismaService|+findAll(): Promise&lt;Station\[\]&gt;;+findOne(): Promise&lt;Station &amp; { lineStops: (LineStop &amp; { line: Line; })\[\]; }&gt;;+create(): Promise&lt;Station&gt;;+updateOne(): Promise&lt;Station&gt;;+removeOne(): Promise&lt;Station&gt;]
+[StationService]  -  [PrismaService]
+[QueryDto|+lineId: number;+stationId: number|]</desc>
+<g stroke-width="1.0" text-align="left" font="12pt Helvetica, Arial, sans-serif" font-size="12pt" font-family="Helvetica" font-weight="bold" font-style="normal">
+<g transform="translate(0.5, 0.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" stroke-width="3.0" stroke-linejoin="round" stroke-linecap="round" stroke="#33322E">
+<g stroke="transparent" fill="transparent">
+<rect x="0.0" y="0.0" height="669.0" width="3651.0" stroke="none"></rect>
+</g>
+<g transform="translate(8, 8)" fill="#33322E">
+<g transform="translate(20, 20)" fill="#33322E" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal">
+<path d="M330.5 205.5 L330.5 263 L330.5 320.5 L330.5 320.5 " fill="none"></path>
+<path d="M825.0 243.0 L825 263 L825 283 L825.0 283.0 " fill="none"></path>
+<path d="M1313.0 213.0 L1313 263 L1313 313 L1313.0 313.0 " fill="none"></path>
+<path d="M1788.5 235.5 L1788.5 263 L1788.5 290.5 L1788.5 290.5 " fill="none"></path>
+<path d="M2605.0 205.5 L2605 263 L2605 320.5 L2605.0 320.5 " fill="none"></path>
+<path d="M3124.0 213.0 L3124 263 L3124 313 L3124.0 313.0 " fill="none"></path>
+<path d="M330.5 488.5 L330.5 546 L1724 587.5756172839506 L1724.0 587.6 " fill="none"></path>
+<path d="M825.0 526.0 L825 546 L1724 586.5879605604566 L1724.0 586.6 " fill="none"></path>
+<path d="M1313.0 496.0 L1313 546 L1724 583.5993690851735 L1724.0 583.6 " fill="none"></path>
+<path d="M1788.5 518.5 L1788.5 546 L1788.5 566 L1788.5 566.0 " fill="none"></path>
+<path d="M2219.0 433.3 L2219 546 L1853 582.9825783972126 L1853.0 583.0 " fill="none"></path>
+<path d="M2224.3 433.3 L2219.0 433.3 L2213.7 433.3 L2219.0 420.0 Z"></path>
+<path d="M2605.0 488.5 L2605 546 L1853 586.0636864666259 L1853.0 586.1 " fill="none"></path>
+<path d="M3124.0 496.0 L3124 546 L1853 587.3991014601273 L1853.0 587.4 " fill="none"></path>
+<g data-name="AppModule">
+<g fill="#eee8d5" stroke="#33322E" data-name="AppModule">
+<rect x="0.0" y="98.0" height="47.0" width="105.0" data-name="AppModule"></rect>
+<path d="M0.0 129.0 L105.0 129.0" fill="none" data-name="AppModule"></path>
+<path d="M0.0 137.0 L105.0 137.0" fill="none" data-name="AppModule"></path>
+</g>
+<g transform="translate(0, 98)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="AppModule">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="AppModule">
+<a id="src/app.module.ts.AppModule" xlink:href="src/app.module.ts"><text x="44.5" y="13.5" stroke="none" text-anchor="middle" data-name="AppModule">AppModule</text></a>
+
+</g>
+</g>
+<g transform="translate(0, 129)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="AppModule">
+<g transform="translate(8, 8)" fill="#33322E" data-name="AppModule">
+
+</g>
+</g>
+<g transform="translate(0, 137)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="AppModule">
+<g transform="translate(8, 8)" fill="#33322E" data-name="AppModule">
+
+</g>
+</g>
+</g>
+<g data-name="BusController">
+<g fill="#eee8d5" stroke="#33322E" data-name="BusController">
+<rect x="145.0" y="38.0" height="168.0" width="371.0" data-name="BusController"></rect>
+<path d="M145.0 69.0 L516.0 69.0" fill="none" data-name="BusController"></path>
+<path d="M145.0 100.0 L516.0 100.0" fill="none" data-name="BusController"></path>
+</g>
+<g transform="translate(145, 38)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="BusController">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="BusController">
+<a id="src/controller/bus.controller.ts.BusController" xlink:href="src/controller/bus.controller.ts"><text x="177.5" y="13.5" stroke="none" text-anchor="middle" data-name="BusController">BusController</text></a>
+
+</g>
+</g>
+<g transform="translate(145, 69)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="BusController">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="BusController">
+<text x="0.0" y="13.5" stroke="none" data-name="BusController">-busService: BusService</text>
+
+</g>
+</g>
+<g transform="translate(145, 100)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="BusController">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="BusController">
+<text x="0.0" y="13.5" stroke="none" data-name="BusController">+findAll(): Promise&lt;Bus[]&gt;</text>
+<text x="0.0" y="28.5" stroke="none" data-name="BusController">+findOne(): Promise&lt;Bus &amp; { garage: Garage</text>
+<text x="0.0" y="43.5" stroke="none" data-name="BusController">}&gt;</text>
+<text x="0.0" y="58.5" stroke="none" data-name="BusController">+create(): Promise&lt;Bus&gt;</text>
+<text x="0.0" y="73.5" stroke="none" data-name="BusController">+updateOne(): Promise&lt;Bus&gt;</text>
+<text x="0.0" y="88.5" stroke="none" data-name="BusController">+removeOne(): Promise&lt;Bus&gt;</text>
+
+</g>
+</g>
+</g>
+<g data-name="GarageController">
+<g fill="#eee8d5" stroke="#33322E" data-name="GarageController">
+<rect x="556.0" y="0.0" height="243.0" width="538.0" data-name="GarageController"></rect>
+<path d="M556.0 31.0 L1094.0 31.0" fill="none" data-name="GarageController"></path>
+<path d="M556.0 62.0 L1094.0 62.0" fill="none" data-name="GarageController"></path>
+</g>
+<g transform="translate(556, 0)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="GarageController">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="GarageController">
+<a id="src/controller/garage.controller.ts.GarageController" xlink:href="src/controller/garage.controller.ts"><text x="261.0" y="13.5" stroke="none" text-anchor="middle" data-name="GarageController">GarageController</text></a>
+
+</g>
+</g>
+<g transform="translate(556, 31)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="GarageController">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="GarageController">
+<text x="0.0" y="13.5" stroke="none" data-name="GarageController">-garageService: GarageService</text>
+
+</g>
+</g>
+<g transform="translate(556, 62)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="GarageController">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="GarageController">
+<text x="0.0" y="13.5" stroke="none" data-name="GarageController">+findAll(): Promise&lt;Garage[]&gt;</text>
+<text x="0.0" y="28.5" stroke="none" data-name="GarageController">+biggestGarages(): Promise&lt;(Garage &amp; { _count: { buses: number</text>
+<text x="0.0" y="43.5" stroke="none" data-name="GarageController">}</text>
+<text x="0.0" y="58.5" stroke="none" data-name="GarageController">})[]&gt;</text>
+<text x="0.0" y="73.5" stroke="none" data-name="GarageController">+findOne(): Promise&lt;Garage &amp; { buses: Bus[]</text>
+<text x="0.0" y="88.5" stroke="none" data-name="GarageController">startingLines: Line[]</text>
+<text x="0.0" y="103.5" stroke="none" data-name="GarageController">endingLines: Line[]</text>
+<text x="0.0" y="118.5" stroke="none" data-name="GarageController">}&gt;</text>
+<text x="0.0" y="133.5" stroke="none" data-name="GarageController">+create(): Promise&lt;Garage&gt;</text>
+<text x="0.0" y="148.5" stroke="none" data-name="GarageController">+updateOne(): Promise&lt;Garage&gt;</text>
+<text x="0.0" y="163.5" stroke="none" data-name="GarageController">+removeOne(): Promise&lt;Garage&gt;</text>
+
+</g>
+</g>
+</g>
+<g data-name="LineStopController">
+<g fill="#eee8d5" stroke="#33322E" data-name="LineStopController">
+<rect x="1134.0" y="30.0" height="183.0" width="358.0" data-name="LineStopController"></rect>
+<path d="M1134.0 61.0 L1492.0 61.0" fill="none" data-name="LineStopController"></path>
+<path d="M1134.0 92.0 L1492.0 92.0" fill="none" data-name="LineStopController"></path>
+</g>
+<g transform="translate(1134, 30)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="LineStopController">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="LineStopController">
+<a id="src/controller/line-stop.controller.ts.LineStopController" xlink:href="src/controller/line-stop.controller.ts"><text x="171.0" y="13.5" stroke="none" text-anchor="middle" data-name="LineStopController">LineStopController</text></a>
+
+</g>
+</g>
+<g transform="translate(1134, 61)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="LineStopController">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="LineStopController">
+<text x="0.0" y="13.5" stroke="none" data-name="LineStopController">-lineStopService: LineStopService</text>
+
+</g>
+</g>
+<g transform="translate(1134, 92)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="LineStopController">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="LineStopController">
+<text x="0.0" y="13.5" stroke="none" data-name="LineStopController">+findAll(): Promise&lt;LineStop[]&gt;</text>
+<text x="0.0" y="28.5" stroke="none" data-name="LineStopController">+findOne(): Promise&lt;LineStop &amp; { line: Line</text>
+<text x="0.0" y="43.5" stroke="none" data-name="LineStopController">station: Station</text>
+<text x="0.0" y="58.5" stroke="none" data-name="LineStopController">}&gt;</text>
+<text x="0.0" y="73.5" stroke="none" data-name="LineStopController">+create(): Promise&lt;LineStop&gt;</text>
+<text x="0.0" y="88.5" stroke="none" data-name="LineStopController">+updateOne(): Promise&lt;LineStop&gt;</text>
+<text x="0.0" y="103.5" stroke="none" data-name="LineStopController">+removeOne(): Promise&lt;LineStop&gt;</text>
+
+</g>
+</g>
+</g>
+<g data-name="LineController">
+<g fill="#eee8d5" stroke="#33322E" data-name="LineController">
+<rect x="1532.0" y="8.0" height="228.0" width="513.0" data-name="LineController"></rect>
+<path d="M1532.0 39.0 L2045.0 39.0" fill="none" data-name="LineController"></path>
+<path d="M1532.0 70.0 L2045.0 70.0" fill="none" data-name="LineController"></path>
+</g>
+<g transform="translate(1532, 8)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="LineController">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="LineController">
+<a id="src/controller/line.controller.ts.LineController" xlink:href="src/controller/line.controller.ts"><text x="248.5" y="13.5" stroke="none" text-anchor="middle" data-name="LineController">LineController</text></a>
+
+</g>
+</g>
+<g transform="translate(1532, 39)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="LineController">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="LineController">
+<text x="0.0" y="13.5" stroke="none" data-name="LineController">-lineService: LineService</text>
+
+</g>
+</g>
+<g transform="translate(1532, 70)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="LineController">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="LineController">
+<text x="0.0" y="13.5" stroke="none" data-name="LineController">+findAll(): Promise&lt;Line[]&gt;</text>
+<text x="0.0" y="28.5" stroke="none" data-name="LineController">+longestLines(): Promise&lt;(Line &amp; { _count: { lineStops: number</text>
+<text x="0.0" y="43.5" stroke="none" data-name="LineController">}</text>
+<text x="0.0" y="58.5" stroke="none" data-name="LineController">})[]&gt;</text>
+<text x="0.0" y="73.5" stroke="none" data-name="LineController">+findOne(): Promise&lt;Line &amp; { startGarage: Garage</text>
+<text x="0.0" y="88.5" stroke="none" data-name="LineController">endGarage: Garage</text>
+<text x="0.0" y="103.5" stroke="none" data-name="LineController">}&gt;</text>
+<text x="0.0" y="118.5" stroke="none" data-name="LineController">+create(): Promise&lt;Line&gt;</text>
+<text x="0.0" y="133.5" stroke="none" data-name="LineController">+updateOne(): Promise&lt;Line&gt;</text>
+<text x="0.0" y="148.5" stroke="none" data-name="LineController">+removeOne(): Promise&lt;Line&gt;</text>
+
+</g>
+</g>
+</g>
+<g data-name="StationSignController">
+<g fill="#eee8d5" stroke="#33322E" data-name="StationSignController">
+<rect x="2393.0" y="38.0" height="168.0" width="424.0" data-name="StationSignController"></rect>
+<path d="M2393.0 69.0 L2817.0 69.0" fill="none" data-name="StationSignController"></path>
+<path d="M2393.0 100.0 L2817.0 100.0" fill="none" data-name="StationSignController"></path>
+</g>
+<g transform="translate(2393, 38)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="StationSignController">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="StationSignController">
+<a id="src/controller/station-sign.controller.ts.StationSignController" xlink:href="src/controller/station-sign.controller.ts"><text x="204.0" y="13.5" stroke="none" text-anchor="middle" data-name="StationSignController">StationSignController</text></a>
+
+</g>
+</g>
+<g transform="translate(2393, 69)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="StationSignController">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="StationSignController">
+<text x="0.0" y="13.5" stroke="none" data-name="StationSignController">-stationSignService: StationSignService</text>
+
+</g>
+</g>
+<g transform="translate(2393, 100)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="StationSignController">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="StationSignController">
+<text x="0.0" y="13.5" stroke="none" data-name="StationSignController">+findAll(): Promise&lt;StationSign[]&gt;</text>
+<text x="0.0" y="28.5" stroke="none" data-name="StationSignController">+findOne(): Promise&lt;StationSign &amp; { station: Station</text>
+<text x="0.0" y="43.5" stroke="none" data-name="StationSignController">}&gt;</text>
+<text x="0.0" y="58.5" stroke="none" data-name="StationSignController">+create(): Promise&lt;StationSign&gt;</text>
+<text x="0.0" y="73.5" stroke="none" data-name="StationSignController">+updateOne(): Promise&lt;StationSign&gt;</text>
+<text x="0.0" y="88.5" stroke="none" data-name="StationSignController">+removeOne(): Promise&lt;StationSign&gt;</text>
+
+</g>
+</g>
+</g>
+<g data-name="StationController">
+<g fill="#eee8d5" stroke="#33322E" data-name="StationController">
+<rect x="2857.0" y="30.0" height="183.0" width="534.0" data-name="StationController"></rect>
+<path d="M2857.0 61.0 L3391.0 61.0" fill="none" data-name="StationController"></path>
+<path d="M2857.0 92.0 L3391.0 92.0" fill="none" data-name="StationController"></path>
+</g>
+<g transform="translate(2857, 30)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="StationController">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="StationController">
+<a id="src/controller/station.controller.ts.StationController" xlink:href="src/controller/station.controller.ts"><text x="259.0" y="13.5" stroke="none" text-anchor="middle" data-name="StationController">StationController</text></a>
+
+</g>
+</g>
+<g transform="translate(2857, 61)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="StationController">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="StationController">
+<text x="0.0" y="13.5" stroke="none" data-name="StationController">-stationService: StationService</text>
+
+</g>
+</g>
+<g transform="translate(2857, 92)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="StationController">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="StationController">
+<text x="0.0" y="13.5" stroke="none" data-name="StationController">+findAll(): Promise&lt;Station[]&gt;</text>
+<text x="0.0" y="28.5" stroke="none" data-name="StationController">+findOne(): Promise&lt;Station &amp; { lineStops: (LineStop &amp; { line: Line</text>
+<text x="0.0" y="43.5" stroke="none" data-name="StationController">})[]</text>
+<text x="0.0" y="58.5" stroke="none" data-name="StationController">}&gt;</text>
+<text x="0.0" y="73.5" stroke="none" data-name="StationController">+create(): Promise&lt;Station&gt;</text>
+<text x="0.0" y="88.5" stroke="none" data-name="StationController">+updateOne(): Promise&lt;Station&gt;</text>
+<text x="0.0" y="103.5" stroke="none" data-name="StationController">+removeOne(): Promise&lt;Station&gt;</text>
+
+</g>
+</g>
+</g>
+<g data-name="BusService">
+<g fill="#eee8d5" stroke="#33322E" data-name="BusService">
+<rect x="145.0" y="321.0" height="168.0" width="371.0" data-name="BusService"></rect>
+<path d="M145.0 352.0 L516.0 352.0" fill="none" data-name="BusService"></path>
+<path d="M145.0 383.0 L516.0 383.0" fill="none" data-name="BusService"></path>
+</g>
+<g transform="translate(145, 321)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="BusService">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="BusService">
+<a id="src/service/bus.service.ts.BusService" xlink:href="src/service/bus.service.ts"><text x="177.5" y="13.5" stroke="none" text-anchor="middle" data-name="BusService">BusService</text></a>
+
+</g>
+</g>
+<g transform="translate(145, 352)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="BusService">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="BusService">
+<text x="0.0" y="13.5" stroke="none" data-name="BusService">-prisma: PrismaService</text>
+
+</g>
+</g>
+<g transform="translate(145, 383)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="BusService">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="BusService">
+<text x="0.0" y="13.5" stroke="none" data-name="BusService">+findAll(): Promise&lt;Bus[]&gt;</text>
+<text x="0.0" y="28.5" stroke="none" data-name="BusService">+findOne(): Promise&lt;Bus &amp; { garage: Garage</text>
+<text x="0.0" y="43.5" stroke="none" data-name="BusService">}&gt;</text>
+<text x="0.0" y="58.5" stroke="none" data-name="BusService">+create(): Promise&lt;Bus&gt;</text>
+<text x="0.0" y="73.5" stroke="none" data-name="BusService">+updateOne(): Promise&lt;Bus&gt;</text>
+<text x="0.0" y="88.5" stroke="none" data-name="BusService">+removeOne(): Promise&lt;Bus&gt;</text>
+
+</g>
+</g>
+</g>
+<g data-name="GarageService">
+<g fill="#eee8d5" stroke="#33322E" data-name="GarageService">
+<rect x="556.0" y="283.0" height="243.0" width="538.0" data-name="GarageService"></rect>
+<path d="M556.0 314.0 L1094.0 314.0" fill="none" data-name="GarageService"></path>
+<path d="M556.0 345.0 L1094.0 345.0" fill="none" data-name="GarageService"></path>
+</g>
+<g transform="translate(556, 283)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="GarageService">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="GarageService">
+<a id="src/service/garage.service.ts.GarageService" xlink:href="src/service/garage.service.ts"><text x="261.0" y="13.5" stroke="none" text-anchor="middle" data-name="GarageService">GarageService</text></a>
+
+</g>
+</g>
+<g transform="translate(556, 314)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="GarageService">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="GarageService">
+<text x="0.0" y="13.5" stroke="none" data-name="GarageService">-prisma: PrismaService</text>
+
+</g>
+</g>
+<g transform="translate(556, 345)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="GarageService">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="GarageService">
+<text x="0.0" y="13.5" stroke="none" data-name="GarageService">+findAll(): Promise&lt;Garage[]&gt;</text>
+<text x="0.0" y="28.5" stroke="none" data-name="GarageService">+findOne(): Promise&lt;Garage &amp; { buses: Bus[]</text>
+<text x="0.0" y="43.5" stroke="none" data-name="GarageService">startingLines: Line[]</text>
+<text x="0.0" y="58.5" stroke="none" data-name="GarageService">endingLines: Line[]</text>
+<text x="0.0" y="73.5" stroke="none" data-name="GarageService">}&gt;</text>
+<text x="0.0" y="88.5" stroke="none" data-name="GarageService">+create(): Promise&lt;Garage&gt;</text>
+<text x="0.0" y="103.5" stroke="none" data-name="GarageService">+updateOne(): Promise&lt;Garage&gt;</text>
+<text x="0.0" y="118.5" stroke="none" data-name="GarageService">+removeOne(): Promise&lt;Garage&gt;</text>
+<text x="0.0" y="133.5" stroke="none" data-name="GarageService">+biggestGarages(): Promise&lt;(Garage &amp; { _count: { buses: number</text>
+<text x="0.0" y="148.5" stroke="none" data-name="GarageService">}</text>
+<text x="0.0" y="163.5" stroke="none" data-name="GarageService">})[]&gt;</text>
+
+</g>
+</g>
+</g>
+<g data-name="LineStopService">
+<g fill="#eee8d5" stroke="#33322E" data-name="LineStopService">
+<rect x="1134.0" y="313.0" height="183.0" width="358.0" data-name="LineStopService"></rect>
+<path d="M1134.0 344.0 L1492.0 344.0" fill="none" data-name="LineStopService"></path>
+<path d="M1134.0 375.0 L1492.0 375.0" fill="none" data-name="LineStopService"></path>
+</g>
+<g transform="translate(1134, 313)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="LineStopService">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="LineStopService">
+<a id="src/service/line-stop.service.ts.LineStopService" xlink:href="src/service/line-stop.service.ts"><text x="171.0" y="13.5" stroke="none" text-anchor="middle" data-name="LineStopService">LineStopService</text></a>
+
+</g>
+</g>
+<g transform="translate(1134, 344)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="LineStopService">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="LineStopService">
+<text x="0.0" y="13.5" stroke="none" data-name="LineStopService">-prisma: PrismaService</text>
+
+</g>
+</g>
+<g transform="translate(1134, 375)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="LineStopService">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="LineStopService">
+<text x="0.0" y="13.5" stroke="none" data-name="LineStopService">+findAll(): Promise&lt;LineStop[]&gt;</text>
+<text x="0.0" y="28.5" stroke="none" data-name="LineStopService">+findOne(): Promise&lt;LineStop &amp; { line: Line</text>
+<text x="0.0" y="43.5" stroke="none" data-name="LineStopService">station: Station</text>
+<text x="0.0" y="58.5" stroke="none" data-name="LineStopService">}&gt;</text>
+<text x="0.0" y="73.5" stroke="none" data-name="LineStopService">+create(): Promise&lt;LineStop&gt;</text>
+<text x="0.0" y="88.5" stroke="none" data-name="LineStopService">+updateOne(): Promise&lt;LineStop&gt;</text>
+<text x="0.0" y="103.5" stroke="none" data-name="LineStopService">+removeOne(): Promise&lt;LineStop&gt;</text>
+
+</g>
+</g>
+</g>
+<g data-name="LineService">
+<g fill="#eee8d5" stroke="#33322E" data-name="LineService">
+<rect x="1532.0" y="291.0" height="228.0" width="513.0" data-name="LineService"></rect>
+<path d="M1532.0 322.0 L2045.0 322.0" fill="none" data-name="LineService"></path>
+<path d="M1532.0 353.0 L2045.0 353.0" fill="none" data-name="LineService"></path>
+</g>
+<g transform="translate(1532, 291)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="LineService">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="LineService">
+<a id="src/service/line.service.ts.LineService" xlink:href="src/service/line.service.ts"><text x="248.5" y="13.5" stroke="none" text-anchor="middle" data-name="LineService">LineService</text></a>
+
+</g>
+</g>
+<g transform="translate(1532, 322)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="LineService">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="LineService">
+<text x="0.0" y="13.5" stroke="none" data-name="LineService">-prisma: PrismaService</text>
+
+</g>
+</g>
+<g transform="translate(1532, 353)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="LineService">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="LineService">
+<text x="0.0" y="13.5" stroke="none" data-name="LineService">+findAll(): Promise&lt;Line[]&gt;</text>
+<text x="0.0" y="28.5" stroke="none" data-name="LineService">+findOne(): Promise&lt;Line &amp; { startGarage: Garage</text>
+<text x="0.0" y="43.5" stroke="none" data-name="LineService">endGarage: Garage</text>
+<text x="0.0" y="58.5" stroke="none" data-name="LineService">}&gt;</text>
+<text x="0.0" y="73.5" stroke="none" data-name="LineService">+create(): Promise&lt;Line&gt;</text>
+<text x="0.0" y="88.5" stroke="none" data-name="LineService">+updateOne(): Promise&lt;Line&gt;</text>
+<text x="0.0" y="103.5" stroke="none" data-name="LineService">+removeOne(): Promise&lt;Line&gt;</text>
+<text x="0.0" y="118.5" stroke="none" data-name="LineService">+longestLines(): Promise&lt;(Line &amp; { _count: { lineStops: number</text>
+<text x="0.0" y="133.5" stroke="none" data-name="LineService">}</text>
+<text x="0.0" y="148.5" stroke="none" data-name="LineService">})[]&gt;</text>
+
+</g>
+</g>
+</g>
+<g data-name="PrismaService">
+<g fill="#eee8d5" stroke="#33322E" data-name="PrismaService">
+<rect x="1724.0" y="566.0" height="47.0" width="129.0" data-name="PrismaService"></rect>
+<path d="M1724.0 597.0 L1853.0 597.0" fill="none" data-name="PrismaService"></path>
+<path d="M1724.0 605.0 L1853.0 605.0" fill="none" data-name="PrismaService"></path>
+</g>
+<g transform="translate(1724, 566)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="PrismaService">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="PrismaService">
+<a id="src/service/prisma.service.ts.PrismaService" xlink:href="src/service/prisma.service.ts"><text x="56.5" y="13.5" stroke="none" text-anchor="middle" data-name="PrismaService">PrismaService</text></a>
+
+</g>
+</g>
+<g transform="translate(1724, 597)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="PrismaService">
+<g transform="translate(8, 8)" fill="#33322E" data-name="PrismaService">
+
+</g>
+</g>
+<g transform="translate(1724, 605)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="PrismaService">
+<g transform="translate(8, 8)" fill="#33322E" data-name="PrismaService">
+
+</g>
+</g>
+</g>
+<g data-name="StationSignService">
+<g fill="#eee8d5" stroke="#33322E" data-name="StationSignService">
+<rect x="2393.0" y="321.0" height="168.0" width="424.0" data-name="StationSignService"></rect>
+<path d="M2393.0 352.0 L2817.0 352.0" fill="none" data-name="StationSignService"></path>
+<path d="M2393.0 383.0 L2817.0 383.0" fill="none" data-name="StationSignService"></path>
+</g>
+<g transform="translate(2393, 321)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="StationSignService">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="StationSignService">
+<a id="src/service/station-sign.service.ts.StationSignService" xlink:href="src/service/station-sign.service.ts"><text x="204.0" y="13.5" stroke="none" text-anchor="middle" data-name="StationSignService">StationSignService</text></a>
+
+</g>
+</g>
+<g transform="translate(2393, 352)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="StationSignService">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="StationSignService">
+<text x="0.0" y="13.5" stroke="none" data-name="StationSignService">-prisma: PrismaService</text>
+
+</g>
+</g>
+<g transform="translate(2393, 383)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="StationSignService">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="StationSignService">
+<text x="0.0" y="13.5" stroke="none" data-name="StationSignService">+findAll(): Promise&lt;StationSign[]&gt;</text>
+<text x="0.0" y="28.5" stroke="none" data-name="StationSignService">+findOne(): Promise&lt;StationSign &amp; { station: Station</text>
+<text x="0.0" y="43.5" stroke="none" data-name="StationSignService">}&gt;</text>
+<text x="0.0" y="58.5" stroke="none" data-name="StationSignService">+create(): Promise&lt;StationSign&gt;</text>
+<text x="0.0" y="73.5" stroke="none" data-name="StationSignService">+updateOne(): Promise&lt;StationSign&gt;</text>
+<text x="0.0" y="88.5" stroke="none" data-name="StationSignService">+removeOne(): Promise&lt;StationSign&gt;</text>
+
+</g>
+</g>
+</g>
+<g data-name="StationService">
+<g fill="#eee8d5" stroke="#33322E" data-name="StationService">
+<rect x="2857.0" y="313.0" height="183.0" width="534.0" data-name="StationService"></rect>
+<path d="M2857.0 344.0 L3391.0 344.0" fill="none" data-name="StationService"></path>
+<path d="M2857.0 375.0 L3391.0 375.0" fill="none" data-name="StationService"></path>
+</g>
+<g transform="translate(2857, 313)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="StationService">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="StationService">
+<a id="src/service/station.service.ts.StationService" xlink:href="src/service/station.service.ts"><text x="259.0" y="13.5" stroke="none" text-anchor="middle" data-name="StationService">StationService</text></a>
+
+</g>
+</g>
+<g transform="translate(2857, 344)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="StationService">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="StationService">
+<text x="0.0" y="13.5" stroke="none" data-name="StationService">-prisma: PrismaService</text>
+
+</g>
+</g>
+<g transform="translate(2857, 375)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="StationService">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="StationService">
+<text x="0.0" y="13.5" stroke="none" data-name="StationService">+findAll(): Promise&lt;Station[]&gt;</text>
+<text x="0.0" y="28.5" stroke="none" data-name="StationService">+findOne(): Promise&lt;Station &amp; { lineStops: (LineStop &amp; { line: Line</text>
+<text x="0.0" y="43.5" stroke="none" data-name="StationService">})[]</text>
+<text x="0.0" y="58.5" stroke="none" data-name="StationService">}&gt;</text>
+<text x="0.0" y="73.5" stroke="none" data-name="StationService">+create(): Promise&lt;Station&gt;</text>
+<text x="0.0" y="88.5" stroke="none" data-name="StationService">+updateOne(): Promise&lt;Station&gt;</text>
+<text x="0.0" y="103.5" stroke="none" data-name="StationService">+removeOne(): Promise&lt;Station&gt;</text>
+
+</g>
+</g>
+</g>
+<g data-name="QueryDto">
+<g fill="#eee8d5" stroke="#33322E" data-name="QueryDto">
+<rect x="3431.0" y="79.0" height="85.0" width="164.0" data-name="QueryDto"></rect>
+<path d="M3431.0 110.0 L3595.0 110.0" fill="none" data-name="QueryDto"></path>
+<path d="M3431.0 156.0 L3595.0 156.0" fill="none" data-name="QueryDto"></path>
+</g>
+<g transform="translate(3431, 79)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="QueryDto">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="QueryDto">
+<a id="src/dto/line-stop/query-dto.ts.QueryDto" xlink:href="src/dto/line-stop/query-dto.ts"><text x="74.0" y="13.5" stroke="none" text-anchor="middle" data-name="QueryDto">QueryDto</text></a>
+
+</g>
+</g>
+<g transform="translate(3431, 110)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="QueryDto">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="QueryDto">
+<text x="0.0" y="13.5" stroke="none" data-name="QueryDto">+lineId: number</text>
+<text x="0.0" y="28.5" stroke="none" data-name="QueryDto">+stationId: number</text>
+
+</g>
+</g>
+<g transform="translate(3431, 156)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="QueryDto">
+<g transform="translate(8, 8)" fill="#33322E" data-name="QueryDto">
+
+</g>
+</g>
+</g>
+<g data-name="PrismaClient&lt;T,U,GlobalReject&gt;">
+<g fill="#eee8d5" stroke="#33322E" data-name="PrismaClient&lt;T,U,GlobalReject&gt;">
+<rect x="2085.0" y="389.0" height="31.0" width="268.0" data-name="PrismaClient&lt;T,U,GlobalReject&gt;"></rect>
+</g>
+<g transform="translate(2085, 389)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="PrismaClient&lt;T,U,GlobalReject&gt;">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="PrismaClient&lt;T,U,GlobalReject&gt;">
+<text x="126.0" y="13.5" stroke="none" text-anchor="middle" data-name="PrismaClient&lt;T,U,GlobalReject&gt;">PrismaClient&lt;T,U,GlobalReject&gt;</text>
+
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</svg>

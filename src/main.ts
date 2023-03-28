@@ -4,7 +4,7 @@ import PrismaService from './service/prisma.service';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  await app.listen(3021);
+  await app.listen(parseInt(process.env.PORT || "3021"));
 
   const prisma = app.get(PrismaService);
 

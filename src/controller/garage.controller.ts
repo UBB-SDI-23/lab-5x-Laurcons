@@ -1,4 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from "@nestjs/common";
+import AddManyBusesDto from "src/dto/garage/add-many-buses.dto";
 import { BusService } from "src/service/bus.service";
 import { GarageService } from "src/service/garage.service";
 
@@ -36,5 +37,10 @@ export class GarageController {
   @Delete(':id')
   async removeOne(@Param('id') id: string) {
     return this.garageService.removeOne(parseInt(id));
+  }
+
+  @Patch(':id/bus/add-many')
+  async addBusesToGarage(@Param('id') garageId: string, @Body() { busIds }: AddManyBusesDto) {
+    return this.garageService.addBusesToGarage(parseInt(garageId), busIds);
   }
 }

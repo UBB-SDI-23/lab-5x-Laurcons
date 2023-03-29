@@ -39,6 +39,14 @@ export class GarageService {
         }
       }
     });
+
     return garages.sort((a, b) => a._count.buses < b._count.buses ? 1 : -1);
+  }
+
+  async addBusesToGarage(garageId: number, busIds: number[]) {
+    return this.prisma.bus.updateMany({
+      where: { id: { in: busIds } },
+      data: { garageId },
+    });
   }
 }

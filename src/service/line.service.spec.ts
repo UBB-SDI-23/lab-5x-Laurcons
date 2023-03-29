@@ -3,8 +3,7 @@
 import { TestBed } from "@automock/jest";
 import { LineService } from './line.service';
 import PrismaService from "./prisma.service";
-
-// jest.mock('./prisma.service');
+import * as crypto from "crypto";
 
 describe("lines service", () => {
   let underTest: LineService;
@@ -22,12 +21,28 @@ describe("lines service", () => {
 
   describe("if no lines", () => {
     test("then return nothing", async () => {
-      prisma.line.findMany.mockRejectedValueOnce([]);
+      prisma.line.findMany.mockResolvedValueOnce([]);
       const lines = await underTest.longestLines();
-      console.log({ lines });
 
-      // expect(lines).toHaveLength(0);
-      // expect(prisma.line.findMany).toBeCalledTimes(1);
+      expect(lines).toHaveLength(0);
+      expect(prisma.line.findMany).toBeCalledTimes(1);
+    });
+  });
+
+  describe("if some lines", () => {
+    test("then return correctly", async () => {
+      prisma.line.findMany.mockResolvedValueOnce([1, 4, 5, 6, 8, 4, 2].map(count => ({
+        id: crypto.randomUUID(),
+        name: crypto.randomUUID(),
+        startName: crypto.randomUUID(),
+        endName: crypto.randomUUID(),
+        _count: { lineStops: count },
+      })));
+
+      const lines = await underTest.longestLines();
+
+      expect(lines).toHaveLength(7);
+      expect(lines[0]._count.lineStops).toBe(8);
     });
   });
 });

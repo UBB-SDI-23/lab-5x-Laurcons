@@ -1,4 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from "@nestjs/common";
+import LineDto from "src/dto/line/line-dto";
 import { LineService } from "src/service/line.service";
 
 @Controller('line')
@@ -27,7 +28,8 @@ export class LineController {
   }
 
   @Post('')
-  async create(@Body() content: any) {
+  async create(@Body() content: LineDto) {
+    console.log({ content });
     return this.lineService.create(content);
   }
 

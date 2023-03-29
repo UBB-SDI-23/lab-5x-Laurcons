@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { Line } from "@prisma/client";
+import { Line, Prisma } from "@prisma/client";
 import { isNumber } from "class-validator";
 import PrismaService from "./prisma.service";
 
@@ -21,7 +21,7 @@ export class LineService {
     return this.prisma.line.findFirstOrThrow({ where: { name }, include: { endGarage: true, startGarage: true } });
   }
 
-  async create(data: Line) {
+  async create(data: Prisma.LineUncheckedCreateInput) {
     return this.prisma.line.create({ data });
   }
 

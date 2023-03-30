@@ -28,4 +28,21 @@ describe("lines service", () => {
       expect(prisma.garage.findMany).toBeCalledTimes(1);
     });
   });
+
+  describe("if some garages", () => {
+    test("then return correctly", async () => {
+      prisma.garage.findMany.mockResolvedValueOnce([1, 4, 5, 6, 8, 4, 2].map(count => ({
+        id: crypto.randomUUID(),
+        name: crypto.randomUUID(),
+        location: crypto.randomUUID(),
+        _count: { buses: count }
+      })));
+
+      const garages = await underTest.biggestGarages();
+
+      expect(garages).toHaveLength(7);
+      expect(garages[0]._count.buses).toBe(8);
+      expect(garages[1]._count.buses).toBe(6);
+    });
+  });
 });

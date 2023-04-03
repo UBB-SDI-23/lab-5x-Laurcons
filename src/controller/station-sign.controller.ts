@@ -1,6 +1,8 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from "@nestjs/common";
+import { ApiOperation, ApiTags } from "@nestjs/swagger";
 import { StationSignService } from "src/service/station-sign.service";
 
+@ApiTags('station-sign')
 @Controller('station-sign')
 export class StationSignController {
   constructor(

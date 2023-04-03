@@ -1,8 +1,10 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from "@nestjs/common";
+import { ApiTags } from "@nestjs/swagger";
 import { LineStop } from "@prisma/client";
 import { QueryDto } from "src/dto/line-stop/query-dto";
 import { LineStopService } from "src/service/line-stop.service";
 
+@ApiTags('line-stop')
 @Controller('line-stop')
 export class LineStopController {
   constructor(

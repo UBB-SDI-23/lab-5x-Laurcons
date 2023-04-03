@@ -1,8 +1,10 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from "@nestjs/common";
+import { ApiOperation, ApiParam, ApiQuery, ApiTags } from "@nestjs/swagger";
 import AddManyBusesDto from "src/dto/garage/add-many-buses.dto";
 import { BusService } from "src/service/bus.service";
 import { GarageService } from "src/service/garage.service";
 
+@ApiTags('garage')
 @Controller('garage')
 export class GarageController {
   constructor(
@@ -40,6 +42,7 @@ export class GarageController {
   }
 
   @Patch(':id/bus/add-many')
+  @ApiOperation({ description: "Adds multiple (existing) buses to this garage." })
   async addBusesToGarage(@Param('id') garageId: string, @Body() { busIds }: AddManyBusesDto) {
     return this.garageService.addBusesToGarage(parseInt(garageId), busIds);
   }

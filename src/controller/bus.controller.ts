@@ -1,6 +1,8 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from "@nestjs/common";
+import { ApiTags } from "@nestjs/swagger";
 import { BusService } from "src/service/bus.service";
 
+@ApiTags('bus')
 @Controller('bus')
 export class BusController {
   constructor(

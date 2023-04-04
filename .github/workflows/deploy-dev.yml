@@ -1,0 +1,14 @@
+on:
+  push:
+    branches: ['lab5x']
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: deploy to laurcons.ro
+    runs-on: ubuntu-latest
+    steps:
+      - uses: distributhor/workflow-webhook@v2
+        env:
+          webhook_url: ${{ secrets.WEBHOOK_URL }}
+          webhook_secret: ${{ secrets.WEBHOOK_SECRET }}

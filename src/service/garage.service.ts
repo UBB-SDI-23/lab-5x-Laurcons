@@ -1,13 +1,13 @@
 import { Injectable } from "@nestjs/common";
-import { Garage } from "@prisma/client";
+import { Garage, Prisma } from "@prisma/client";
 import PrismaService from "./prisma.service";
 
 @Injectable()
 export class GarageService {
   constructor(private prisma: PrismaService) { }
 
-  async findAll() {
-    return this.prisma.garage.findMany();
+  async findAll(params: { orderBy?: Prisma.GarageOrderByWithRelationInput } = {}) {
+    return this.prisma.garage.findMany({ orderBy: params.orderBy });
   }
 
   async findOne(id: number) {

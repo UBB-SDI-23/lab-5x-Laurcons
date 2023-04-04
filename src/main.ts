@@ -8,6 +8,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.useGlobalPipes(new ValidationPipe());
+  app.enableCors();
 
   const swagger = new DocumentBuilder()
     .setTitle("CTP Manager API")

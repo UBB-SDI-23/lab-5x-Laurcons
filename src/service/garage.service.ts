@@ -8,15 +8,18 @@ export class GarageService {
   constructor(private prisma: PrismaService) {}
 
   async findAll({ take, skip, orderBy, direction }: PaginationQuery<Garage>) {
-    return this.prisma.garage.findMany({
-      take,
-      skip,
-      ...(orderBy && {
-        orderBy: {
-          [orderBy]: direction,
-        },
+    return {
+      data: this.prisma.garage.findMany({
+        take,
+        skip,
+        ...(orderBy && {
+          orderBy: {
+            [orderBy]: direction,
+          },
+        }),
       }),
-    });
+      total: this.prisma.garage.count(),
+    };
   }
 
   async findOne(id: number) {
@@ -64,7 +67,12 @@ export class GarageService {
       }),
     });
 
-    return garages.sort((a, b) => (a._count.buses < b._count.buses ? 1 : -1));
+    garages.sort((a, b) => (a._count.buses < b._count.buses ? 1 : -1));
+
+    return {
+      data: garages,
+      total: this.prisma.garage.count(),
+    };
   }
 
   async addBusesToGarage(garageId: number, busIds: number[]) {

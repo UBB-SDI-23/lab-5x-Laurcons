@@ -1,17 +1,29 @@
-import { Injectable } from "@nestjs/common";
-import { Garage, Prisma } from "@prisma/client";
-import PrismaService from "./prisma.service";
+import { Injectable } from '@nestjs/common';
+import { Garage, Prisma } from '@prisma/client';
+import PrismaService from './prisma.service';
+import { PaginationQuery } from 'src/lib/pipe/pagination-query.pipe';
 
 @Injectable()
 export class GarageService {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
-  async findAll(params: { orderBy?: Prisma.GarageOrderByWithRelationInput } = {}) {
-    return this.prisma.garage.findMany({ orderBy: params.orderBy });
+  async findAll({ take, skip, orderBy, direction }: PaginationQuery<Garage>) {
+    return this.prisma.garage.findMany({
+      take,
+      skip,
+      ...(orderBy && {
+        orderBy: {
+          [orderBy]: direction,
+        },
+      }),
+    });
   }
 
   async findOne(id: number) {
-    return this.prisma.garage.findFirstOrThrow({ where: { id }, include: { buses: true, startingLines: true, endingLines: true } });
+    return this.prisma.garage.findFirstOrThrow({
+      where: { id },
+      include: { buses: true, startingLines: true, endingLines: true },
+    });
   }
 
   async create(data: Garage) {
@@ -21,7 +33,7 @@ export class GarageService {
   async updateOne(id: number, updates: Partial<Garage>) {
     return this.prisma.garage.update({
       where: { id },
-      data: updates
+      data: updates,
     });
   }
 
@@ -29,18 +41,30 @@ export class GarageService {
     return this.prisma.garage.delete({ where: { id } });
   }
 
-  async biggestGarages() {
+  async biggestGarages({
+    take,
+    skip,
+    orderBy,
+    direction,
+  }: PaginationQuery<Garage>) {
     const garages = await this.prisma.garage.findMany({
       include: {
         _count: {
           select: {
-            buses: true
-          }
-        }
-      }
+            buses: true,
+          },
+        },
+      },
+      take,
+      skip,
+      ...(orderBy && {
+        orderBy: {
+          [orderBy]: direction,
+        },
+      }),
     });
 
-    return garages.sort((a, b) => a._count.buses < b._count.buses ? 1 : -1);
+    return garages.sort((a, b) => (a._count.buses < b._count.buses ? 1 : -1));
   }
 
   async addBusesToGarage(garageId: number, busIds: number[]) {

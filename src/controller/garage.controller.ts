@@ -1,31 +1,42 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from "@nestjs/common";
-import { ApiOperation, ApiParam, ApiQuery, ApiTags } from "@nestjs/swagger";
-import AddManyBusesDto from "src/dto/garage/add-many-buses.dto";
-import { FindAllQueryDto } from "src/dto/garage/find-all-query.dto";
-import { BusService } from "src/service/bus.service";
-import { GarageService } from "src/service/garage.service";
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+  UsePipes,
+} from '@nestjs/common';
+import { ApiOperation, ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
+import { Garage } from '@prisma/client';
+import AddManyBusesDto from 'src/dto/garage/add-many-buses.dto';
+import { FindAllQueryDto } from 'src/dto/garage/find-all-query.dto';
+import PaginationQueryPipe, {
+  PaginationQuery,
+} from 'src/lib/pipe/pagination-query.pipe';
+import { GarageService } from 'src/service/garage.service';
 
 @ApiTags('garage')
 @Controller('garage')
 export class GarageController {
-  constructor(
-    private garageService: GarageService
-  ) { }
+  constructor(private garageService: GarageService) {}
 
   @Get('')
-  async findAll(@Query() query: FindAllQueryDto) {
-    return this.garageService.findAll({
-      ...(query.orderBy && {
-        orderBy: {
-          [query.orderBy]: query.direction,
-        },
-      }),
-    });
+  @UsePipes(
+    new PaginationQueryPipe<Garage>({ sortableKeys: ['location', 'name'] }),
+  )
+  async findAll(@Query() query: PaginationQuery<Garage>) {
+    return this.garageService.findAll(query);
   }
 
   @Get('biggestGarages')
-  async biggestGarages() {
-    return this.garageService.biggestGarages();
+  @UsePipes(
+    new PaginationQueryPipe<Garage>({ sortableKeys: ['location', 'name'] }),
+  )
+  async biggestGarages(@Query() query: PaginationQuery<Garage>) {
+    return this.garageService.biggestGarages(query);
   }
 
   @Get(':id')
@@ -49,8 +60,13 @@ export class GarageController {
   }
 
   @Patch(':id/bus/add-many')
-  @ApiOperation({ description: "Adds multiple (existing) buses to this garage." })
-  async addBusesToGarage(@Param('id') garageId: string, @Body() { busIds }: AddManyBusesDto) {
+  @ApiOperation({
+    description: 'Adds multiple (existing) buses to this garage.',
+  })
+  async addBusesToGarage(
+    @Param('id') garageId: string,
+    @Body() { busIds }: AddManyBusesDto,
+  ) {
     return this.garageService.addBusesToGarage(parseInt(garageId), busIds);
   }
 }

@@ -12,6 +12,7 @@ import { LineService } from './service/line.service';
 import PrismaService from './service/prisma.service';
 import { StationSignService } from './service/station-sign.service';
 import { StationService } from './service/station.service';
+import PaginationQueryPipe from './lib/pipe/pagination-query.pipe';
 
 @Module({
   imports: [],
@@ -31,6 +32,7 @@ import { StationService } from './service/station.service';
     LineStopService,
     StationSignService,
     PrismaService,
+    PaginationQueryPipe,
   ],
 })
-export class AppModule { }
+export class AppModule {}

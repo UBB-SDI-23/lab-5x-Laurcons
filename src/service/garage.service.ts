@@ -9,7 +9,7 @@ export class GarageService {
 
   async findAll({ take, skip, orderBy, direction }: PaginationQuery<Garage>) {
     return {
-      data: this.prisma.garage.findMany({
+      data: await this.prisma.garage.findMany({
         take,
         skip,
         ...(orderBy && {
@@ -18,7 +18,7 @@ export class GarageService {
           },
         }),
       }),
-      total: this.prisma.garage.count(),
+      total: await this.prisma.garage.count(),
     };
   }
 
@@ -71,7 +71,7 @@ export class GarageService {
 
     return {
       data: garages,
-      total: this.prisma.garage.count(),
+      total: await this.prisma.garage.count(),
     };
   }
 

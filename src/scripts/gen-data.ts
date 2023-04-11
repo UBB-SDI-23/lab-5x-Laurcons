@@ -168,7 +168,7 @@ async function lineStops() {
 async function main() {
   faker.setLocale('ro');
   f = await fs.open(`fakedata.sql`, 'w');
-  await f.write('USE mpp-myapp;\n');
+  // await f.write('USE mpp-myapp;\n');
   await garages();
   await buses();
   await lines();

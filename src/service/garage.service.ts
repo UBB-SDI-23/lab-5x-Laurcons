@@ -44,33 +44,32 @@ export class GarageService {
     return this.prisma.garage.delete({ where: { id } });
   }
 
-  async biggestGarages({
-    take,
-    skip,
-    orderBy,
-    direction,
-  }: PaginationQuery<Garage>) {
-    const garages = await this.prisma.garage.findMany({
-      include: {
-        _count: {
-          select: {
-            buses: true,
-          },
-        },
-      },
-      take,
-      skip,
-      ...(orderBy && {
-        orderBy: {
-          [orderBy]: direction,
-        },
-      }),
-    });
+  async biggestGarages({ take, skip }: PaginationQuery<Garage>) {
+    // const garages = await this.prisma.garage.findMany({
+    //   include: {
+    //     _count: {
+    //       select: {
+    //         buses: true,
+    //       },
+    //     },
+    //   },
+    //   take,
+    //   skip,
+    //   ...(orderBy && {
+    //     orderBy: {
+    //       [orderBy]: direction,
+    //     },
+    //   }),
+    // });
 
-    garages.sort((a, b) => (a._count.buses < b._count.buses ? 1 : -1));
+    // garages.sort((a, b) => (a._count.buses < b._count.buses ? 1 : -1));
+    const garages = await this.prisma.$queryRaw<
+      (Garage & { busCount: number })[]
+    >`SELECT G.*,COUNT(B.id) AS busCount FROM Garage G LEFT JOIN Bus B ON B.garageId=G.id GROUP BY G.id ORDER BY busCount DESC LIMIT ${take} OFFSET ${skip};`;
 
     return {
-      data: garages,
+      // busCount is a BigInt so convert it to a normal number
+      data: garages.map((g) => ({ ...g, busCount: Number(g.busCount) })),
       total: await this.prisma.garage.count(),
     };
   }

@@ -32,9 +32,7 @@ export class GarageController {
   }
 
   @Get('biggestGarages')
-  @UsePipes(
-    new PaginationQueryPipe<Garage>({ sortableKeys: ['location', 'name'] }),
-  )
+  @UsePipes(new PaginationQueryPipe<Garage>({ sortableKeys: [] }))
   async biggestGarages(@Query() query: PaginationQuery<Garage>) {
     return this.garageService.biggestGarages(query);
   }

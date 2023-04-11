@@ -7,8 +7,8 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./database.db"
+  provider = "mysql"
+  url      = env("DATABASE_URL")
 }
 
 model Bus {
@@ -16,7 +16,7 @@ model Bus {
   manufacturer String
   model        String
   fuel         String // DIESEL, BATTERY_ELECTRIC, CABLE_ELECTRIC
-  inventoryNum Int
+  inventoryNum BigInt
   licensePlate String
   garageId     Int
 

@@ -16,7 +16,7 @@ model Bus {
   manufacturer String
   model        String
   fuel         String // DIESEL, BATTERY_ELECTRIC, CABLE_ELECTRIC
-  inventoryNum BigInt
+  inventoryNum String
   licensePlate String
   garageId     Int
 

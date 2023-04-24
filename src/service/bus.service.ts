@@ -1,17 +1,30 @@
-import { Injectable } from "@nestjs/common";
-import { Bus } from "@prisma/client";
-import PrismaService from "./prisma.service";
+import { Injectable } from '@nestjs/common';
+import { Bus, Garage } from '@prisma/client';
+import PrismaService from './prisma.service';
+import { PaginationQuery } from 'src/lib/pipe/pagination-query.pipe';
 
 @Injectable()
 export class BusService {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
-  async findAll() {
-    return this.prisma.bus.findMany();
+  async findAll({ take, skip }: PaginationQuery<Bus & { garage: Garage }>) {
+    return {
+      data: await this.prisma.bus.findMany({
+        take,
+        skip,
+        include: {
+          garage: true,
+        },
+      }),
+      total: await this.prisma.bus.count(),
+    };
   }
 
   async findOne(id: number) {
-    return this.prisma.bus.findFirstOrThrow({ where: { id }, include: { garage: true } });
+    return this.prisma.bus.findFirstOrThrow({
+      where: { id },
+      include: { garage: true },
+    });
   }
 
   async create(data: Bus) {
@@ -21,7 +34,7 @@ export class BusService {
   async updateOne(id: number, updates: Partial<Bus>) {
     return this.prisma.bus.update({
       where: { id },
-      data: updates
+      data: updates,
     });
   }
 

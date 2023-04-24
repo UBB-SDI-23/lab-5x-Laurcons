@@ -19,13 +19,13 @@ export class PaginationQuery<T> {
   @Min(0)
   @Transform((params) => parseInt(params.value))
   @IsOptional()
-  skip?: number;
+  skip?: number = 0;
 
   @IsNumber()
   @Min(0)
   @Transform((params) => parseInt(params.value))
   @IsOptional()
-  take?: number;
+  take?: number = 20;
 
   @IsString()
   @IsOptional()
@@ -34,6 +34,9 @@ export class PaginationQuery<T> {
   @IsIn(['asc', 'desc'])
   @IsOptional()
   direction?: 'asc' | 'desc';
+
+  @IsOptional()
+  search?: string;
 }
 
 // @Injectable()

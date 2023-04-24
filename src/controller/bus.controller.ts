@@ -1,20 +1,37 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from "@nestjs/common";
-import { ApiTags } from "@nestjs/swagger";
-import { BusService } from "src/service/bus.service";
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+  UseInterceptors,
+  UsePipes,
+} from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
+import { BusService } from 'src/service/bus.service';
+import BigIntInterceptor from '../lib/interceptor/bigint-interceptor';
+import PaginationQueryPipe, {
+  PaginationQuery,
+} from 'src/lib/pipe/pagination-query.pipe';
+import { Bus } from '@prisma/client';
 
 @ApiTags('bus')
 @Controller('bus')
 export class BusController {
-  constructor(
-    private busService: BusService
-  ) { }
+  constructor(private busService: BusService) {}
 
   @Get('')
-  async findAll() {
-    return this.busService.findAll();
+  @UsePipes(new PaginationQueryPipe<Bus>({ sortableKeys: [] }))
+  @UseInterceptors(BigIntInterceptor)
+  async findAll(@Query() query: PaginationQuery<Bus>) {
+    return this.busService.findAll(query);
   }
 
   @Get(':id')
+  @UseInterceptors(BigIntInterceptor)
   async findOne(@Param('id') id: string) {
     return this.busService.findOne(parseInt(id));
   }

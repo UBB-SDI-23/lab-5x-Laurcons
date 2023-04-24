@@ -83,7 +83,7 @@ async function buses() {
           'BATTERY_ELECTRIC',
           'CABLE_ELECTRIC',
         ]),
-        inventoryNum: parseInt(faker.random.numeric(10)),
+        inventoryNum: faker.random.numeric(10).toString(),
         licensePlate:
           'CJ' +
           faker.random.numeric(2) +

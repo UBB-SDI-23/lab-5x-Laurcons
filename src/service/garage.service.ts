@@ -7,9 +7,20 @@ import { PaginationQuery } from 'src/lib/pipe/pagination-query.pipe';
 export class GarageService {
   constructor(private prisma: PrismaService) {}
 
-  async findAll({ take, skip, orderBy, direction }: PaginationQuery<Garage>) {
+  async findAll({
+    take,
+    skip,
+    orderBy,
+    direction,
+    search,
+  }: PaginationQuery<Garage>) {
     return {
       data: await this.prisma.garage.findMany({
+        where: {
+          name: {
+            contains: search,
+          },
+        },
         take,
         skip,
         ...(orderBy && {

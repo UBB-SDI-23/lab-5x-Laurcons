@@ -26,9 +26,7 @@ async function writeBatch(
     throw new Error();
   }
   await f.write(`\n\n-- ${entityName}\n\n`);
-  await f.write('SET FOREIGN_KEY_CHECKS = 0;\n');
   await f.write(`TRUNCATE TABLE ${entityName};\n`);
-  await f.write('SET FOREIGN_KEY_CHECKS = 1;\n');
   const batches = BATCHES * (isManyToMany ? 10 : 1);
   for (let batchIdx = 0; batchIdx < batches; batchIdx++) {
     await f.write(`INSERT INTO ${entityName} (${keys.join(', ')}) VALUES\n`);
@@ -49,7 +47,7 @@ async function writeBatch(
 }
 
 async function garages() {
-  await writeBatch('Garage', ['name', 'location'], () => {
+  await writeBatch('Garage', ['name', 'location', 'capacity'], () => {
     const street = faker.address.street();
     const garage: Prisma.GarageCreateInput = {
       name:
@@ -59,8 +57,9 @@ async function garages() {
         ' ' +
         faker.address.buildingNumber(),
       location: street,
+      capacity: Math.floor(Math.random() * 10) * 10,
     };
-    return [garage.name, garage.location];
+    return [garage.name, garage.location, garage.capacity];
   });
 }
 
@@ -168,12 +167,14 @@ async function lineStops() {
 async function main() {
   faker.setLocale('ro');
   f = await fs.open(`fakedata.sql`, 'w');
+  await f.write('SET FOREIGN_KEY_CHECKS = 0;\n');
   // await f.write('USE mpp-myapp;\n');
   await garages();
   await buses();
   await lines();
   await stations();
   await lineStops();
+  await f.write('SET FOREIGN_KEY_CHECKS = 1;\n');
 }
 
 main();

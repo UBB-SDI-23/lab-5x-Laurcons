@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `Garage` MODIFY `capacity` INTEGER NOT NULL DEFAULT 0;

@@ -5,3 +5,5 @@ database.db
 dist
 
 fakedata.sql
+
+src/scripts/**/*.js

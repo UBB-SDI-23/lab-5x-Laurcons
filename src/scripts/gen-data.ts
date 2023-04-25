@@ -83,11 +83,12 @@ async function buses() {
           'BATTERY_ELECTRIC',
           'CABLE_ELECTRIC',
         ]),
-        inventoryNum: faker.random.numeric(10).toString(),
+        inventoryNum: faker.random.numeric(10),
         licensePlate:
+          faker.helpers.maybe(() => 'CJ-N' + faker.random.numeric(6)) ??
           'CJ' +
-          faker.random.numeric(2) +
-          faker.random.alpha({ count: 3, casing: 'upper' }),
+            faker.random.numeric(2) +
+            faker.random.alpha({ count: 3, casing: 'upper' }),
         garageId: Math.floor(Math.random() * ENTITY_COUNT) + 1,
       };
       return [
@@ -167,6 +168,7 @@ async function lineStops() {
 async function main() {
   faker.setLocale('ro');
   f = await fs.open(`fakedata.sql`, 'w');
+  await f.write('SET unique_checks = 0;\n');
   await f.write('SET FOREIGN_KEY_CHECKS = 0;\n');
   // await f.write('USE mpp-myapp;\n');
   await garages();
@@ -174,6 +176,7 @@ async function main() {
   await lines();
   await stations();
   await lineStops();
+  await f.write('SET unique_checks = 1;\n');
   await f.write('SET FOREIGN_KEY_CHECKS = 1;\n');
 }
 

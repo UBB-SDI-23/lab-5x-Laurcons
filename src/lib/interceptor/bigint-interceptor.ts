@@ -24,7 +24,6 @@ export default class BigIntInterceptor implements NestInterceptor {
           ? responseJson.map(this.transformItem)
           : this.transformItem(responseJson);
       }),
-      tap(console.log),
     );
   }
 }

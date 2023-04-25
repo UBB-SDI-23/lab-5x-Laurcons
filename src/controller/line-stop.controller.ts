@@ -1,18 +1,30 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from "@nestjs/common";
-import { ApiTags } from "@nestjs/swagger";
-import { LineStop } from "@prisma/client";
-import { QueryDto } from "src/dto/line-stop/query-dto";
-import { LineStopService } from "src/service/line-stop.service";
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+  UsePipes,
+} from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
+import { LineStop } from '@prisma/client';
+import { QueryDto } from 'src/dto/line-stop/query-dto';
+import PaginationQueryPipe, {
+  PaginationQuery,
+} from 'src/lib/pipe/pagination-query.pipe';
+import { LineStopService } from 'src/service/line-stop.service';
 
 @ApiTags('line-stop')
 @Controller('line-stop')
 export class LineStopController {
-  constructor(
-    private lineStopService: LineStopService
-  ) { }
+  constructor(private lineStopService: LineStopService) {}
 
   @Get('')
-  async findAll(@Query() query: QueryDto) {
+  @UsePipes(new PaginationQueryPipe({ sortableKeys: [] }))
+  async findAll(@Query() query: QueryDto & PaginationQuery<LineStop>) {
     return this.lineStopService.findAll(query);
   }
 

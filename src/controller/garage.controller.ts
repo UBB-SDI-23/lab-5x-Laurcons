@@ -25,7 +25,7 @@ export class GarageController {
 
   @Get('')
   @UsePipes(
-    new PaginationQueryPipe<Garage>({ sortableKeys: ['location', 'name'] }),
+    new PaginationQueryPipe<Garage>({ sortableKeys: ['id', 'location', 'name'] }),
   )
   async findAll(@Query() query: PaginationQuery<Garage>) {
     return this.garageService.findAll(query);

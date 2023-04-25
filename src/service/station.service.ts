@@ -7,9 +7,11 @@ import { PaginationQuery } from 'src/lib/pipe/pagination-query.pipe';
 export class StationService {
   constructor(private prisma: PrismaService) {}
 
-  async findAll({ take, skip }: PaginationQuery<Station>) {
+  async findAll({ take, skip, search }: PaginationQuery<Station>) {
+    const where = { name: { contains: search } };
     return {
       data: await this.prisma.station.findMany({
+        where,
         take,
         skip,
         include: {
@@ -20,7 +22,7 @@ export class StationService {
           },
         },
       }),
-      total: await this.prisma.station.count(),
+      total: await this.prisma.station.count({ where }),
     };
   }
 

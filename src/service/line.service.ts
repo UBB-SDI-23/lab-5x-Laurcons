@@ -1,39 +1,54 @@
-import { Injectable } from "@nestjs/common";
-import { Line, Prisma } from "@prisma/client";
-import { isNumber } from "class-validator";
-import PrismaService from "./prisma.service";
+import { Injectable } from '@nestjs/common';
+import { Line, Prisma } from '@prisma/client';
+import { isNumber } from 'class-validator';
+import PrismaService from './prisma.service';
+import { PaginationQuery } from 'src/lib/pipe/pagination-query.pipe';
 
 @Injectable()
 export class LineService {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
-  async findAll({ monthlyRidershipMin }: { monthlyRidershipMin?: number } = {}) {
-    return this.prisma.line.findMany({
-      where: {
-        ...(isNumber(monthlyRidershipMin) && {
-          monthlyRidership: { gte: monthlyRidershipMin }
-        }),
-      },
-    });
+  async findAll({
+    monthlyRidershipMin,
+    take,
+    skip,
+  }: { monthlyRidershipMin?: number } & PaginationQuery<Line> = {}) {
+    const where = {
+      ...(isNumber(monthlyRidershipMin) && {
+        monthlyRidership: { gte: monthlyRidershipMin },
+      }),
+    };
+    return {
+      data: await this.prisma.line.findMany({
+        take,
+        skip,
+        where,
+        include: { endGarage: true, startGarage: true },
+      }),
+      total: await this.prisma.line.count({ where }),
+    };
   }
 
-  async findOne(name: string) {
-    return this.prisma.line.findFirstOrThrow({ where: { name }, include: { endGarage: true, startGarage: true } });
+  async findOne(id: number) {
+    return this.prisma.line.findFirstOrThrow({
+      where: { id },
+      include: { endGarage: true, startGarage: true },
+    });
   }
 
   async create(data: Prisma.LineUncheckedCreateInput) {
     return this.prisma.line.create({ data });
   }
 
-  async updateOne(name: string, updates: Partial<Line>) {
+  async updateOne(id: number, updates: Partial<Line>) {
     return this.prisma.line.update({
-      where: { name },
-      data: updates
+      where: { id },
+      data: updates,
     });
   }
 
-  async removeOne(name: string) {
-    return this.prisma.line.delete({ where: { name } });
+  async removeOne(id: number) {
+    return this.prisma.line.delete({ where: { id } });
   }
 
   async longestLines() {
@@ -41,12 +56,12 @@ export class LineService {
       include: {
         _count: {
           select: {
-            lineStops: true
-          }
-        }
-      }
+            lineStops: true,
+          },
+        },
+      },
     });
-    lines.sort((a, b) => a._count.lineStops < b._count.lineStops ? 1 : -1);
+    lines.sort((a, b) => (a._count.lineStops < b._count.lineStops ? 1 : -1));
     return lines;
   }
 }

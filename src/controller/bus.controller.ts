@@ -17,6 +17,8 @@ import PaginationQueryPipe, {
   PaginationQuery,
 } from 'src/lib/pipe/pagination-query.pipe';
 import { Bus } from '@prisma/client';
+import { BusCreateDto } from 'src/dto/bus/create.dto';
+import { BusUpdateDto } from 'src/dto/bus/update.dto';
 
 @ApiTags('bus')
 @Controller('bus')
@@ -37,12 +39,12 @@ export class BusController {
   }
 
   @Post('')
-  async create(@Body() content: any) {
+  async create(@Body() content: BusCreateDto) {
     return this.busService.create(content);
   }
 
   @Patch(':id')
-  async updateOne(@Param('id') id: string, @Body() updates: any) {
+  async updateOne(@Param('id') id: string, @Body() updates: BusUpdateDto) {
     return this.busService.updateOne(parseInt(id), updates);
   }
 

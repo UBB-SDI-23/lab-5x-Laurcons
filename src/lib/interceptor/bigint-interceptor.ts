@@ -14,7 +14,6 @@ export default class BigIntInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     return next.handle().pipe(
       map((responseJson) => {
-        console.log({ responseJson });
         if (typeof responseJson !== 'object') return;
         return isArray(responseJson.data) && isNumber(responseJson.total)
           ? {

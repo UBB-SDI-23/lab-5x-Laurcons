@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Bus, Garage } from '@prisma/client';
 import PrismaService from './prisma.service';
 import { PaginationQuery } from 'src/lib/pipe/pagination-query.pipe';
+import { BusCreateDto } from 'src/dto/bus/create.dto';
 
 @Injectable()
 export class BusService {
@@ -27,7 +28,7 @@ export class BusService {
     });
   }
 
-  async create(data: Bus) {
+  async create(data: BusCreateDto) {
     return this.prisma.bus.create({ data });
   }
 

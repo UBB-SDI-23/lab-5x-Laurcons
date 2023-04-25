@@ -1,13 +1,27 @@
-import { Injectable } from "@nestjs/common";
-import { Garage } from "@prisma/client";
-import PrismaService from "./prisma.service";
+import { Injectable } from '@nestjs/common';
+import { Station } from '@prisma/client';
+import PrismaService from './prisma.service';
+import { PaginationQuery } from 'src/lib/pipe/pagination-query.pipe';
 
 @Injectable()
 export class StationService {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
-  async findAll() {
-    return this.prisma.station.findMany();
+  async findAll({ take, skip }: PaginationQuery<Station>) {
+    return {
+      data: await this.prisma.station.findMany({
+        take,
+        skip,
+        include: {
+          lineStops: {
+            include: {
+              line: true,
+            },
+          },
+        },
+      }),
+      total: await this.prisma.station.count(),
+    };
   }
 
   async findOne(id: number) {
@@ -16,26 +30,25 @@ export class StationService {
       include: {
         lineStops: {
           include: {
-            line: true
-          }
-        }
-      }
+            line: true,
+          },
+        },
+      },
     });
   }
 
-  async create(data: Garage) {
+  async create(data: Station) {
     return this.prisma.station.create({ data });
   }
 
-  async updateOne(id: number, updates: Partial<Garage>) {
+  async updateOne(id: number, updates: Partial<Station>) {
     return this.prisma.station.update({
       where: { id },
-      data: updates
+      data: updates,
     });
   }
 
   async removeOne(id: number) {
     return this.prisma.station.delete({ where: { id } });
   }
-
 }

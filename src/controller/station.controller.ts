@@ -1,17 +1,30 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from "@nestjs/common";
-import { ApiTags } from "@nestjs/swagger";
-import { StationService } from "src/service/station.service";
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+  UsePipes,
+} from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
+import { Station } from '@prisma/client';
+import PaginationQueryPipe, {
+  PaginationQuery,
+} from 'src/lib/pipe/pagination-query.pipe';
+import { StationService } from 'src/service/station.service';
 
 @ApiTags('station')
 @Controller('station')
 export class StationController {
-  constructor(
-    private stationService: StationService
-  ) { }
+  constructor(private stationService: StationService) {}
 
   @Get('')
-  async findAll() {
-    return this.stationService.findAll();
+  @UsePipes(new PaginationQueryPipe({ sortableKeys: [] }))
+  async findAll(@Query() query: PaginationQuery<Station>) {
+    return this.stationService.findAll(query);
   }
 
   @Get(':id')

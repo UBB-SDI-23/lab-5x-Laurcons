@@ -23,7 +23,11 @@ export class LineService {
         take,
         skip,
         where,
-        include: { endGarage: true, startGarage: true },
+        include: {
+          endGarage: true,
+          startGarage: true,
+          lineStops: { include: { station: true } },
+        },
       }),
       total: await this.prisma.line.count({ where }),
     };
@@ -32,7 +36,11 @@ export class LineService {
   async findOne(id: number) {
     return this.prisma.line.findFirstOrThrow({
       where: { id },
-      include: { endGarage: true, startGarage: true },
+      include: {
+        endGarage: true,
+        startGarage: true,
+        lineStops: { include: { station: true } },
+      },
     });
   }
 

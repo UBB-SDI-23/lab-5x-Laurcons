@@ -1,7 +1,7 @@
-import { Line } from "@prisma/client";
-import { IsDivisibleBy, IsNumber, IsPositive, IsString } from "class-validator";
+import { Line } from '@prisma/client';
+import { IsDivisibleBy, IsNumber, IsPositive, IsString } from 'class-validator';
 
-export default class LineDto implements Partial<Line> {
+export default class CreateLineDto implements Partial<Line> {
   @IsString()
   name: string;
 

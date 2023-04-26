@@ -11,7 +11,8 @@ import {
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { Line } from '@prisma/client';
-import LineDto from 'src/dto/line/line-dto';
+import CreateLineDto from 'src/dto/line/create.dto';
+import UpdateLineDto from 'src/dto/line/update.dto';
 import PaginationQueryPipe, {
   PaginationQuery,
 } from 'src/lib/pipe/pagination-query.pipe';
@@ -50,12 +51,12 @@ export class LineController {
   }
 
   @Post('')
-  async create(@Body() content: LineDto) {
+  async create(@Body() content: CreateLineDto) {
     return this.lineService.create(content);
   }
 
   @Patch(':id')
-  async updateOne(@Param('id') id: string, @Body() updates: any) {
+  async updateOne(@Param('id') id: string, @Body() updates: UpdateLineDto) {
     return this.lineService.updateOne(parseInt(id), updates);
   }
 

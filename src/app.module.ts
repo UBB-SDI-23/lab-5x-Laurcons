@@ -13,10 +13,14 @@ import PrismaService from './service/prisma.service';
 import { StationSignService } from './service/station-sign.service';
 import { StationService } from './service/station.service';
 import PaginationQueryPipe from './lib/pipe/pagination-query.pipe';
+import AuthController from './controller/auth.controller';
+import UserService from './service/user.service';
+import AuthService from './service/auth.service';
 
 @Module({
   imports: [],
   controllers: [
+    AuthController,
     BusController,
     GarageController,
     LineController,
@@ -25,6 +29,8 @@ import PaginationQueryPipe from './lib/pipe/pagination-query.pipe';
     StationSignController,
   ],
   providers: [
+    UserService,
+    AuthService,
     BusService,
     GarageService,
     LineService,

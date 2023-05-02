@@ -11,6 +11,28 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum UserStatus {
+  not_activated
+  activated
+}
+
+model User {
+  id                  Int        @id @default(autoincrement())
+  status              UserStatus @default(not_activated)
+  username            String     @unique
+  password            String
+  emailActivationCode String?    @unique
+}
+
+model UserProfile {
+  id        Int      @id @default(autoincrement())
+  birthDate DateTime
+  bio       String   @db.Text
+  gender    String
+  location  String
+  website   String
+}
+
 model Bus {
   id           Int    @id @default(autoincrement())
   manufacturer String
@@ -28,10 +50,13 @@ model Garage {
   id            Int    @id @default(autoincrement())
   name          String
   location      String
-  capacity      Int @default(0)
+  capacity      Int    @default(0)
   buses         Bus[]
   startingLines Line[] @relation("startGarage")
   endingLines   Line[] @relation("endGarage")
+
+  @@index(name)
+  @@index(location)
 }
 
 model Line {

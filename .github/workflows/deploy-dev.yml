@@ -1,6 +1,6 @@
 on:
   push:
-    branches: ['lab5x']
+    branches: ['dev']
   workflow_dispatch:
 
 jobs:

@@ -2,6 +2,7 @@ import { Body, Controller, Get, Param, Post, Res } from '@nestjs/common';
 import { Response } from 'express';
 import LoginDto from 'src/dto/user/login.dto';
 import RegisterDto from 'src/dto/user/register.dto';
+import { Public } from 'src/lib/guard/is-public';
 import AuthService from 'src/service/auth.service';
 import UserService from 'src/service/user.service';
 
@@ -12,6 +13,7 @@ export default class AuthController {
     private userService: UserService,
   ) {}
 
+  @Public()
   @Post('/login')
   async login(@Body() { username, password }: LoginDto) {
     const { user, token } = await this.authService.verifyCredentials(
@@ -24,6 +26,7 @@ export default class AuthController {
     };
   }
 
+  @Public()
   @Post('/register')
   async register(@Body() data: RegisterDto) {
     const user = await this.userService.register(data);
@@ -33,6 +36,7 @@ export default class AuthController {
     };
   }
 
+  @Public()
   @Get('/activate/:token')
   async activateEmail(@Param('token') token: string, @Res() res: Response) {
     try {

@@ -16,6 +16,8 @@ import PaginationQueryPipe from './lib/pipe/pagination-query.pipe';
 import AuthController from './controller/auth.controller';
 import UserService from './service/user.service';
 import AuthService from './service/auth.service';
+import { APP_GUARD } from '@nestjs/core';
+import AuthGuard from './lib/guard/auth.guard';
 
 @Module({
   imports: [],
@@ -39,6 +41,10 @@ import AuthService from './service/auth.service';
     StationSignService,
     PrismaService,
     PaginationQueryPipe,
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
+    },
   ],
 })
 export class AppModule {}

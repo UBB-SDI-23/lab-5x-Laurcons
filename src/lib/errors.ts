@@ -24,4 +24,11 @@ export const errors = {
       'Please confirm your email',
     ),
   },
+  user: {
+    invalidPassword: new AppException(
+      422,
+      'InvalidPassword',
+      'Your password is invalid',
+    ),
+  },
 };

@@ -2,7 +2,7 @@ import { Body, Controller, Get, Param, Post, Res } from '@nestjs/common';
 import { Response } from 'express';
 import LoginDto from 'src/dto/user/login.dto';
 import RegisterDto from 'src/dto/user/register.dto';
-import { Public } from 'src/lib/guard/is-public';
+import { Public } from 'src/lib/decorator/is-public';
 import AuthService from 'src/service/auth.service';
 import UserService from 'src/service/user.service';
 

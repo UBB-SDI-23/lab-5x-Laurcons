@@ -1,7 +1,7 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Request } from 'express';
 import AuthService from 'src/service/auth.service';
-import { IS_PUBLIC } from './is-public';
+import { IS_PUBLIC } from '../decorator/is-public';
 import { Reflector } from '@nestjs/core';
 
 @Injectable()

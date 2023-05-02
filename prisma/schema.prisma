@@ -23,7 +23,7 @@ model User {
   password            String
   emailActivationCode String?    @unique
 
-  profiles UserProfile[]
+  profile UserProfile?
   buses Bus[]
   garages Garage[]
   stations Station[]
@@ -40,7 +40,7 @@ model UserProfile {
   location  String
   website   String
 
-  userId       Int
+  userId       Int @unique
   user   User   @relation(fields: [userId], references: [id])
 }
 

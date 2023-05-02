@@ -62,13 +62,13 @@ async function users() {
 }
 
 async function profiles() {
-  const lid = 10;
+  let idx = 10;
   await writeBatch(
     'UserProfile',
     ['userId', 'birthDate', 'bio', 'gender', 'location', 'website'],
-    async (rowNum: number) => {
+    async () => {
       const prof: Prisma.UserProfileUncheckedCreateInput = {
-        userId: lid + rowNum,
+        userId: idx++,
         bio: faker.lorem.sentences(10),
         birthDate: faker.date.birthdate({ min: 18, max: 60, mode: 'age' }),
         gender: faker.helpers.arrayElement(['male', 'female', 'other']),

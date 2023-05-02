@@ -1,17 +1,24 @@
-import { Injectable } from "@nestjs/common";
-import { StationSign } from "@prisma/client";
-import PrismaService from "./prisma.service";
+import { Injectable } from '@nestjs/common';
+import { StationSign } from '@prisma/client';
+import PrismaService from './prisma.service';
 
 @Injectable()
 export class StationSignService {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
   async findAll() {
-    return this.prisma.stationSign.findMany();
+    return this.prisma.stationSign.findMany({
+      include: {
+        owner: true,
+      },
+    });
   }
 
   async findOne(id: number) {
-    return this.prisma.stationSign.findFirstOrThrow({ where: { id }, include: { station: true } });
+    return this.prisma.stationSign.findFirstOrThrow({
+      where: { id },
+      include: { station: true },
+    });
   }
 
   async create(data: StationSign) {
@@ -21,7 +28,7 @@ export class StationSignService {
   async updateOne(id: number, updates: Partial<StationSign>) {
     return this.prisma.stationSign.update({
       where: { id },
-      data: updates
+      data: updates,
     });
   }
 

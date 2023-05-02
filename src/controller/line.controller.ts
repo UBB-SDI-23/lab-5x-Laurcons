@@ -10,9 +10,10 @@ import {
   UsePipes,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { Line } from '@prisma/client';
+import { Line, User } from '@prisma/client';
 import CreateLineDto from 'src/dto/line/create.dto';
 import UpdateLineDto from 'src/dto/line/update.dto';
+import { ReqUser } from 'src/lib/decorator/req-user';
 import PaginationQueryPipe, {
   PaginationQuery,
 } from 'src/lib/pipe/pagination-query.pipe';
@@ -51,8 +52,8 @@ export class LineController {
   }
 
   @Post('')
-  async create(@Body() content: CreateLineDto) {
-    return this.lineService.create(content);
+  async create(@ReqUser() user: User, @Body() content: CreateLineDto) {
+    return this.lineService.create({ ...content, ownerId: user.id });
   }
 
   @Patch(':id')

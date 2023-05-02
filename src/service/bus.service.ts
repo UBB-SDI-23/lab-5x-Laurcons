@@ -15,6 +15,7 @@ export class BusService {
         skip,
         include: {
           garage: true,
+          owner: true,
         },
       }),
       total: await this.prisma.bus.count(),

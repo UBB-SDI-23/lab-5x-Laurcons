@@ -16,9 +16,10 @@ import BigIntInterceptor from '../lib/interceptor/bigint-interceptor';
 import PaginationQueryPipe, {
   PaginationQuery,
 } from 'src/lib/pipe/pagination-query.pipe';
-import { Bus } from '@prisma/client';
+import { Bus, User } from '@prisma/client';
 import { BusCreateDto } from 'src/dto/bus/create.dto';
 import { BusUpdateDto } from 'src/dto/bus/update.dto';
+import { ReqUser } from 'src/lib/decorator/req-user';
 
 @ApiTags('bus')
 @Controller('bus')
@@ -39,8 +40,8 @@ export class BusController {
   }
 
   @Post('')
-  async create(@Body() content: BusCreateDto) {
-    return this.busService.create(content);
+  async create(@ReqUser() user: User, @Body() content: BusCreateDto) {
+    return this.busService.create({ ...content, ownerId: user.id });
   }
 
   @Patch(':id')

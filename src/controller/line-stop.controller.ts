@@ -10,8 +10,9 @@ import {
   UsePipes,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { LineStop } from '@prisma/client';
+import { LineStop, User } from '@prisma/client';
 import { QueryDto } from 'src/dto/line-stop/query-dto';
+import { ReqUser } from 'src/lib/decorator/req-user';
 import PaginationQueryPipe, {
   PaginationQuery,
 } from 'src/lib/pipe/pagination-query.pipe';
@@ -34,8 +35,8 @@ export class LineStopController {
   }
 
   @Post('')
-  async create(@Body() content: LineStop) {
-    return this.lineStopService.create(content);
+  async create(@ReqUser() user: User, @Body() content: LineStop) {
+    return this.lineStopService.create({ ...content, ownerId: user.id });
   }
 
   @Patch(':id')

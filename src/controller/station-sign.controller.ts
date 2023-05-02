@@ -1,13 +1,22 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from "@nestjs/common";
-import { ApiOperation, ApiTags } from "@nestjs/swagger";
-import { StationSignService } from "src/service/station-sign.service";
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+} from '@nestjs/common';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { User } from '@prisma/client';
+import { ReqUser } from 'src/lib/decorator/req-user';
+import { StationSignService } from 'src/service/station-sign.service';
 
 @ApiTags('station-sign')
 @Controller('station-sign')
 export class StationSignController {
-  constructor(
-    private stationSignService: StationSignService
-  ) { }
+  constructor(private stationSignService: StationSignService) {}
 
   @Get('')
   async findAll() {
@@ -20,8 +29,8 @@ export class StationSignController {
   }
 
   @Post('')
-  async create(@Body() content: any) {
-    return this.stationSignService.create(content);
+  async create(@ReqUser() user: User, @Body() content: any) {
+    return this.stationSignService.create({ ...content, ownerId: user.id });
   }
 
   @Patch(':id')

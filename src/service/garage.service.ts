@@ -28,6 +28,9 @@ export class GarageService {
             [orderBy]: direction,
           },
         }),
+        include: {
+          owner: true,
+        },
       }),
       total: await this.prisma.garage.count(),
     };

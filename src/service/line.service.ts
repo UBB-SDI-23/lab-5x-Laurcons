@@ -27,6 +27,7 @@ export class LineService {
           endGarage: true,
           startGarage: true,
           lineStops: { include: { station: true } },
+          owner: true,
         },
       }),
       total: await this.prisma.line.count({ where }),

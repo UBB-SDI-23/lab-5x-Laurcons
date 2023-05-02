@@ -3,6 +3,7 @@ import { User } from '@prisma/client';
 import { PatchProfileDto } from 'src/dto/user/patch-profile.dto';
 import { PatchUserDto } from 'src/dto/user/patch-user.dto';
 import { ReqUser } from 'src/lib/decorator/req-user';
+import { AppException } from 'src/lib/errors';
 import UserService from 'src/service/user.service';
 
 @Controller('/user')
@@ -21,9 +22,11 @@ export default class UserController {
 
   @Get(':who/profile')
   async getProfile(@ReqUser() user: User, @Param('who') who: string) {
-    return await this.userService.getProfile(
+    const profile = await this.userService.getProfile(
       who === 'me' ? user.id : parseInt(who),
     );
+    if (!profile) throw new AppException(404, 'NotFound', 'Not found');
+    return profile;
   }
 
   @Patch('me/profile')

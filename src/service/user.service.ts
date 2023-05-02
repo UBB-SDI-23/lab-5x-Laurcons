@@ -63,7 +63,7 @@ export default class UserService {
   }
 
   async getProfile(id: number) {
-    return await this.prisma.userProfile.findUniqueOrThrow({
+    return await this.prisma.userProfile.findUnique({
       where: { userId: id },
       include: { user: true },
     });

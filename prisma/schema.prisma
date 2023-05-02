@@ -22,6 +22,13 @@ model User {
   username            String     @unique
   password            String
   emailActivationCode String?    @unique
+
+  buses Bus[]
+  garages Garage[]
+  stations Station[]
+  lines Line[]
+  lineStops LineStop[]
+  stationSigns StationSign[]
 }
 
 model UserProfile {
@@ -42,8 +49,10 @@ model Bus {
   licensePlate String
   garageId     Int
 
-  // relation fields
   garage Garage @relation(fields: [garageId], references: [id])
+
+  ownerId       Int @default(0)
+  owner   User   @relation(fields: [ownerId], references: [id])
 }
 
 model Garage {
@@ -54,6 +63,9 @@ model Garage {
   buses         Bus[]
   startingLines Line[] @relation("startGarage")
   endingLines   Line[] @relation("endGarage")
+
+  ownerId       Int @default(0)
+  owner   User   @relation(fields: [ownerId], references: [id])
 
   @@index(name)
   @@index(location)
@@ -72,6 +84,9 @@ model Line {
   startGarage Garage     @relation("startGarage", fields: [startGarageId], references: [id])
   endGarage   Garage     @relation("endGarage", fields: [endGarageId], references: [id])
   lineStops   LineStop[]
+
+  ownerId       Int @default(0)
+  owner   User   @relation(fields: [ownerId], references: [id])
 }
 
 model Station {
@@ -81,6 +96,9 @@ model Station {
 
   lineStops   LineStop[]
   stationSign StationSign?
+
+  ownerId       Int @default(0)
+  owner   User   @relation(fields: [ownerId], references: [id])
 }
 
 model LineStop {
@@ -93,6 +111,9 @@ model LineStop {
 
   station Station @relation(fields: [stationId], references: [id])
   line    Line    @relation(fields: [lineId], references: [id])
+
+  ownerId       Int @default(0)
+  owner   User   @relation(fields: [ownerId], references: [id])
 }
 
 model StationSign {
@@ -104,4 +125,7 @@ model StationSign {
   administration    String // CTP, PMCJ
 
   station Station @relation(fields: [stationId], references: [id])
+
+  ownerId       Int @default(0)
+  owner   User   @relation(fields: [ownerId], references: [id])
 }

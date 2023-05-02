@@ -8,7 +8,7 @@ import {
   Matches,
 } from 'class-validator';
 
-export class BusCreateDto implements Omit<Bus, 'id'> {
+export class BusCreateDto implements Omit<Bus, 'id' | 'ownerId'> {
   @IsString()
   manufacturer: string;
 

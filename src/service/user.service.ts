@@ -63,7 +63,9 @@ export default class UserService {
   }
 
   async getProfile(id: number) {
-    return await this.prisma.userProfile.findUnique({ where: { id } });
+    return await this.prisma.userProfile.findUniqueOrThrow({
+      where: { userId: id },
+    });
   }
 
   async patchProfile(id: number, data: Partial<UserProfile>) {

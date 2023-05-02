@@ -20,7 +20,7 @@ export default class UserController {
   }
 
   @Get(':who/profile')
-  async getProfile(@ReqUser() user: User, @Param() who: string) {
+  async getProfile(@ReqUser() user: User, @Param('who') who: string) {
     return await this.userService.getProfile(
       who === 'me' ? user.id : parseInt(who),
     );

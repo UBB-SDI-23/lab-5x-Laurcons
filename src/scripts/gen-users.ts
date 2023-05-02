@@ -53,7 +53,12 @@ async function writeBatch(
 async function users() {
   await writeBatch('User', ['username', 'password', 'status'], async () => {
     const user: Prisma.UserCreateInput = {
-      username: faker.internet.userName(),
+      username:
+        faker.internet.userName() +
+        '_' +
+        faker.color.human() +
+        '_' +
+        faker.random.numeric(6),
       password: await bcrypt.hash('1234', 5),
       status: UserStatus.activated,
     };
@@ -89,12 +94,12 @@ async function profiles() {
 
 async function main() {
   faker.setLocale('ro');
-  f = await fs.open(`src/scripts/fakeprofiles.sql`, 'w');
+  f = await fs.open(`src/scripts/fakeusers.sql`, 'w');
   await f.write('SET unique_checks = 0;\n');
   await f.write('SET FOREIGN_KEY_CHECKS = 0;\n');
   // await f.write('USE mpp-myapp;\n');
-  // await users();
-  await profiles();
+  await users();
+  // await profiles();
   await f.write('SET unique_checks = 1;\n');
   await f.write('SET FOREIGN_KEY_CHECKS = 1;\n');
 }

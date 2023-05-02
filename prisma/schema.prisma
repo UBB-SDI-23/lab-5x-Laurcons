@@ -23,6 +23,7 @@ model User {
   password            String
   emailActivationCode String?    @unique
 
+  profiles UserProfile[]
   buses Bus[]
   garages Garage[]
   stations Station[]
@@ -38,6 +39,9 @@ model UserProfile {
   gender    String
   location  String
   website   String
+
+  userId       Int
+  user   User   @relation(fields: [userId], references: [id])
 }
 
 model Bus {

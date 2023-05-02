@@ -4,6 +4,6 @@ database.db
 
 dist
 
-fakedata.sql
+fake*.sql
 
 src/scripts/**/*.js

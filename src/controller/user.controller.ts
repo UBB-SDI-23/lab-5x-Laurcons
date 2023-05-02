@@ -3,6 +3,7 @@ import { User } from '@prisma/client';
 import { PatchProfileDto } from 'src/dto/user/patch-profile.dto';
 import { PatchUserDto } from 'src/dto/user/patch-user.dto';
 import { ReqUser } from 'src/lib/decorator/req-user';
+import { AppException } from 'src/lib/errors';
 import UserService from 'src/service/user.service';
 
 @Controller('/user')
@@ -11,7 +12,7 @@ export default class UserController {
 
   @Get('me')
   async getMe(@ReqUser() user: User) {
-    return user;
+    return await this.userService.getWithProfile(user.id);
   }
 
   @Patch('me')
@@ -19,9 +20,13 @@ export default class UserController {
     return await this.userService.patch(user.id, data);
   }
 
-  @Get('me/profile')
-  async getProfile(@ReqUser() user: User) {
-    return await this.userService.getProfile(user.id);
+  @Get(':who/profile')
+  async getProfile(@ReqUser() user: User, @Param('who') who: string) {
+    const profile = await this.userService.getProfile(
+      who === 'me' ? user.id : parseInt(who),
+    );
+    if (!profile) throw new AppException(404, 'NotFound', 'Not found');
+    return profile;
   }
 
   @Patch('me/profile')

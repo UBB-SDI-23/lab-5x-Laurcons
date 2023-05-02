@@ -38,6 +38,13 @@ export default class UserService {
     return user;
   }
 
+  async getWithProfile(id: number) {
+    return await this.prisma.user.findUnique({
+      where: { id },
+      include: { profile: true },
+    });
+  }
+
   async patch(id: number, data: PatchUserDto) {
     const user = await this.prisma.user.findUnique({ where: { id } });
     // verify password
@@ -56,7 +63,10 @@ export default class UserService {
   }
 
   async getProfile(id: number) {
-    return await this.prisma.userProfile.findUnique({ where: { id } });
+    return await this.prisma.userProfile.findUnique({
+      where: { userId: id },
+      include: { user: true },
+    });
   }
 
   async patchProfile(id: number, data: Partial<UserProfile>) {

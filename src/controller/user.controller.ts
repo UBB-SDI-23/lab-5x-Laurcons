@@ -11,7 +11,7 @@ export default class UserController {
 
   @Get('me')
   async getMe(@ReqUser() user: User) {
-    return user;
+    return await this.userService.getWithProfile(user.id);
   }
 
   @Patch('me')

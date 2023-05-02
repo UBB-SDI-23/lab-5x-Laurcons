@@ -10,7 +10,8 @@ import {
   UsePipes,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { Station } from '@prisma/client';
+import { Station, User } from '@prisma/client';
+import { ReqUser } from 'src/lib/decorator/req-user';
 import PaginationQueryPipe, {
   PaginationQuery,
 } from 'src/lib/pipe/pagination-query.pipe';
@@ -33,8 +34,8 @@ export class StationController {
   }
 
   @Post('')
-  async create(@Body() content: any) {
-    return this.stationService.create(content);
+  async create(@ReqUser() user: User, @Body() content: any) {
+    return this.stationService.create({ ...content, ownerId: user.id });
   }
 
   @Patch(':id')

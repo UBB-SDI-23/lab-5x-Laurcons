@@ -16,6 +16,9 @@ export class LineStopService {
         take,
         skip,
         where,
+        include: {
+          owner: true,
+        },
       }),
       total: await this.prisma.lineStop.count({ where }),
     };

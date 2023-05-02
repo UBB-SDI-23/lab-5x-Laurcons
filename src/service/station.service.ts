@@ -20,6 +20,7 @@ export class StationService {
               line: true,
             },
           },
+          owner: true,
         },
       }),
       total: await this.prisma.station.count({ where }),

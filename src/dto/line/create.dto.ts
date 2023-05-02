@@ -1,7 +1,7 @@
 import { Line } from '@prisma/client';
 import { IsDivisibleBy, IsNumber, IsPositive, IsString } from 'class-validator';
 
-export default class CreateLineDto implements Partial<Line> {
+export default class CreateLineDto implements Omit<Line, 'id'> {
   @IsString()
   name: string;
 
@@ -20,4 +20,7 @@ export default class CreateLineDto implements Partial<Line> {
   @IsPositive()
   @IsDivisibleBy(100) // it's an estimate so should be multiple of 100
   monthlyRidership: number;
+
+  // added in controller
+  ownerId: number;
 }

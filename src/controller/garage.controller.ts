@@ -10,9 +10,10 @@ import {
   UsePipes,
 } from '@nestjs/common';
 import { ApiOperation, ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
-import { Garage } from '@prisma/client';
+import { Garage, User } from '@prisma/client';
 import AddManyBusesDto from 'src/dto/garage/add-many-buses.dto';
 import { FindAllQueryDto } from 'src/dto/garage/find-all-query.dto';
+import { ReqUser } from 'src/lib/decorator/req-user';
 import PaginationQueryPipe, {
   PaginationQuery,
 } from 'src/lib/pipe/pagination-query.pipe';
@@ -25,7 +26,9 @@ export class GarageController {
 
   @Get('')
   @UsePipes(
-    new PaginationQueryPipe<Garage>({ sortableKeys: ['id', 'location', 'name'] }),
+    new PaginationQueryPipe<Garage>({
+      sortableKeys: ['id', 'location', 'name'],
+    }),
   )
   async findAll(@Query() query: PaginationQuery<Garage>) {
     return this.garageService.findAll(query);
@@ -43,8 +46,8 @@ export class GarageController {
   }
 
   @Post('')
-  async create(@Body() content: any) {
-    return this.garageService.create(content);
+  async create(@ReqUser() user: User, @Body() content: any) {
+    return this.garageService.create({ ...content, ownerId: user.id });
   }
 
   @Patch(':id')

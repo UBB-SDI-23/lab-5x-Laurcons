@@ -14,7 +14,7 @@ export const errors = {
       'Your credentials are invalid',
     ),
     invalidToken: new AppException(
-      422,
+      403,
       'InvalidToken',
       'Your auth token is invalid',
     ),

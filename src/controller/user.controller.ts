@@ -6,7 +6,7 @@ import { ReqUser } from 'src/lib/decorator/req-user';
 import UserService from 'src/service/user.service';
 
 @Controller('/user')
-export default class AuthController {
+export default class UserController {
   constructor(private userService: UserService) {}
 
   @Get('me')

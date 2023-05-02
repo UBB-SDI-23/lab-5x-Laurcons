@@ -18,11 +18,13 @@ import UserService from './service/user.service';
 import AuthService from './service/auth.service';
 import { APP_GUARD } from '@nestjs/core';
 import AuthGuard from './lib/guard/auth.guard';
+import UserController from './controller/user.controller';
 
 @Module({
   imports: [],
   controllers: [
     AuthController,
+    UserController,
     BusController,
     GarageController,
     LineController,

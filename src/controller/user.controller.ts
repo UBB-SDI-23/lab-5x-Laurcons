@@ -19,9 +19,11 @@ export default class UserController {
     return await this.userService.patch(user.id, data);
   }
 
-  @Get('me/profile')
-  async getProfile(@ReqUser() user: User) {
-    return await this.userService.getProfile(user.id);
+  @Get(':who/profile')
+  async getProfile(@ReqUser() user: User, @Param() who: string) {
+    return await this.userService.getProfile(
+      who === 'me' ? user.id : parseInt(who),
+    );
   }
 
   @Patch('me/profile')

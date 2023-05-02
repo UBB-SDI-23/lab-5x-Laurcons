@@ -8,7 +8,7 @@ import {
   Matches,
 } from 'class-validator';
 
-export class BusUpdateDto implements Omit<Bus, 'id'> {
+export class BusUpdateDto implements Omit<Bus, 'id' | 'ownerId'> {
   @IsString()
   @IsOptional()
   manufacturer: string;

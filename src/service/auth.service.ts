@@ -2,7 +2,7 @@ import { HttpException, Injectable } from '@nestjs/common';
 import PrismaService from './prisma.service';
 import * as bcrypt from 'bcrypt';
 import { errors } from '../lib/errors';
-import { User } from '@prisma/client';
+import { User, UserStatus } from '@prisma/client';
 import * as jwt from 'jsonwebtoken';
 import { config } from '../lib/config';
 
@@ -21,6 +21,8 @@ export default class AuthService {
       },
     });
     if (!user) throw errors.auth.invalidCredentials;
+    if (user.status !== UserStatus.activated && !!user.emailActivationCode)
+      throw errors.auth.emailNotConfirmed;
     const result = await bcrypt.compare(password, user.password);
     if (!result) throw errors.auth.invalidCredentials;
 

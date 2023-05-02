@@ -18,5 +18,10 @@ export const errors = {
       'InvalidToken',
       'Your auth token is invalid',
     ),
+    emailNotConfirmed: new AppException(
+      422,
+      'EmailNotConfirmed',
+      'Please confirm your email',
+    ),
   },
 };

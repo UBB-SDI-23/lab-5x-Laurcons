@@ -32,7 +32,6 @@ export default class AuthController {
     const user = await this.userService.register(data);
     return {
       user,
-      token: await this.authService.generateToken(user),
     };
   }
 

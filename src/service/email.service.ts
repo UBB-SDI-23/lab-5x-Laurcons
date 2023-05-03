@@ -20,7 +20,7 @@ export default class EmailService {
       mail.sendMail(
         {
           from: config.email.from,
-          to: 'laurcons@outlook.com',
+          to: user.email,
           subject: 'Your MPP activation link',
           html: `Access this link for your activation link: ${config.frontendUrl}/auth/register/confirm?code=${user.emailActivationCode}`,
         },

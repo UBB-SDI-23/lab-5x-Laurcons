@@ -67,7 +67,7 @@ async function users() {
 }
 
 async function profiles() {
-  let idx = 10;
+  let idx = 1;
   await writeBatch(
     'UserProfile',
     ['userId', 'birthDate', 'bio', 'gender', 'location', 'website'],
@@ -94,12 +94,12 @@ async function profiles() {
 
 async function main() {
   faker.setLocale('ro');
-  f = await fs.open(`src/scripts/fakeusers.sql`, 'w');
+  f = await fs.open(`src/scripts/fakeprofiles.sql`, 'w');
   await f.write('SET unique_checks = 0;\n');
   await f.write('SET FOREIGN_KEY_CHECKS = 0;\n');
   // await f.write('USE mpp-myapp;\n');
-  await users();
-  // await profiles();
+  // await users();
+  await profiles();
   await f.write('SET unique_checks = 1;\n');
   await f.write('SET FOREIGN_KEY_CHECKS = 1;\n');
 }

@@ -7,27 +7,31 @@ import * as jwt from 'jsonwebtoken';
 import { config } from 'src/lib/config';
 import { PatchUserDto } from 'src/dto/user/patch-user.dto';
 import { errors } from 'src/lib/errors';
+import EmailService from './email.service';
+import * as crypto from 'crypto';
 
 @Injectable()
 export default class UserService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private emailService: EmailService,
+  ) {}
 
   async register(data: RegisterDto) {
-    const emailActivationCode = jwt.sign({}, config.jwtSecret, {
-      expiresIn: '10m',
-    });
+    const emailActivationCode = crypto.randomUUID();
     const password = await bcrypt.hash(data.password, 12);
-    return this.prisma.user.create({
+    const user = await this.prisma.user.create({
       data: {
         ...data,
         password,
         emailActivationCode,
       },
     });
+    await this.emailService.sendVerificationEmail(user);
+    return user;
   }
 
   async verifyEmailCode(emailActivationCode: string) {
-    jwt.verify(emailActivationCode, config.jwtSecret);
     const user = await this.prisma.user.update({
       where: { emailActivationCode },
       data: {

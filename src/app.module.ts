@@ -19,6 +19,7 @@ import AuthService from './service/auth.service';
 import { APP_GUARD } from '@nestjs/core';
 import AuthGuard from './lib/guard/auth.guard';
 import UserController from './controller/user.controller';
+import EmailService from './service/email.service';
 
 @Module({
   imports: [],
@@ -42,6 +43,7 @@ import UserController from './controller/user.controller';
     LineStopService,
     StationSignService,
     PrismaService,
+    EmailService,
     PaginationQueryPipe,
     {
       provide: APP_GUARD,

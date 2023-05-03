@@ -31,6 +31,9 @@ export default class UserController {
 
   @Patch('me/profile')
   async patchProfile(@ReqUser() user: User, @Body() data: PatchProfileDto) {
-    return await this.userService.patchProfile(user.id, data);
+    return await this.userService.patchProfile(user.id, {
+      ...data,
+      userId: user.id,
+    });
   }
 }

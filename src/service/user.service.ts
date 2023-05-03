@@ -92,10 +92,11 @@ export default class UserService {
     };
   }
 
-  async patchProfile(id: number, data: Partial<UserProfile>) {
-    return await this.prisma.userProfile.update({
+  async patchProfile(id: number, data: Omit<UserProfile, 'id'>) {
+    return await this.prisma.userProfile.upsert({
       where: { userId: id },
-      data,
+      create: data,
+      update: data,
     });
   }
 }

@@ -8,9 +8,7 @@ import {
   IsUrl,
 } from 'class-validator';
 
-export class PatchProfileDto
-  implements Partial<Omit<UserProfile, 'id' | 'userId'>>
-{
+export class PatchProfileDto implements Omit<UserProfile, 'id' | 'userId'> {
   @IsDate()
   birthDate: Date;
 

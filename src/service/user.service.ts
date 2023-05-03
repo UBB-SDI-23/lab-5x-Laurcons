@@ -63,10 +63,30 @@ export default class UserService {
   }
 
   async getProfile(id: number) {
-    return await this.prisma.userProfile.findUnique({
+    const profile = await this.prisma.userProfile.findUnique({
       where: { userId: id },
       include: { user: true },
     });
+    if (!profile) return null;
+    const [counts] = await this.prisma.user.findMany({
+      where: { id },
+      select: {
+        _count: {
+          select: {
+            buses: true,
+            garages: true,
+            lines: true,
+            lineStops: true,
+            stations: true,
+            stationSigns: true,
+          },
+        },
+      },
+    });
+    return {
+      ...profile,
+      ...counts,
+    };
   }
 
   async patchProfile(id: number, data: Partial<UserProfile>) {

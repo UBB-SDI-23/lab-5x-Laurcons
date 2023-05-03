@@ -1,4 +1,5 @@
 import { UserProfile } from '@prisma/client';
+import { Transform } from 'class-transformer';
 import {
   IsDate,
   IsDateString,
@@ -10,6 +11,7 @@ import {
 
 export class PatchProfileDto implements Omit<UserProfile, 'id' | 'userId'> {
   @IsDate()
+  @Transform(({ value, obj }) => (obj.birthDate = new Date(value)))
   birthDate: Date;
 
   @IsString()

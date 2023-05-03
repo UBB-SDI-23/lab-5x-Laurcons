@@ -21,7 +21,7 @@ export default class AuthService {
       },
     });
     if (!user) throw errors.auth.invalidCredentials;
-    if (user.status !== UserStatus.activated && !!user.emailActivationCode)
+    if (user.status !== UserStatus.activated)
       throw errors.auth.emailNotConfirmed;
     const result = await bcrypt.compare(password, user.password);
     if (!result) throw errors.auth.invalidCredentials;

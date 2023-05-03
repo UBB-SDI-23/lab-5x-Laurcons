@@ -22,6 +22,7 @@ model User {
   username            String     @unique
   password            String
   emailActivationCode String?    @unique
+  email               String?
 
   profile UserProfile?
   buses Bus[]

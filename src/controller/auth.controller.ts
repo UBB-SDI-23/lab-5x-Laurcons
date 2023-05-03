@@ -37,7 +37,7 @@ export default class AuthController {
 
   @Public()
   @Get('/activate/:token')
-  async activateEmail(@Param('token') token: string, @Res() res: Response) {
+  async activateEmail(@Param('token') token: string) {
     const user = await this.userService.verifyEmailCode(token);
     return {
       user,

@@ -32,14 +32,13 @@ export default class UserService {
   }
 
   async verifyEmailCode(emailActivationCode: string) {
-    const user = await this.prisma.user.update({
+    return await this.prisma.user.update({
       where: { emailActivationCode },
       data: {
         emailActivationCode: null,
         status: UserStatus.activated,
       },
     });
-    return user;
   }
 
   async getWithProfile(id: number) {

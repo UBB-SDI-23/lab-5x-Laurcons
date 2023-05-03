@@ -38,15 +38,10 @@ export default class AuthController {
   @Public()
   @Get('/activate/:token')
   async activateEmail(@Param('token') token: string, @Res() res: Response) {
-    try {
-      await this.userService.verifyEmailCode(token);
-      res
-        .contentType('text/plain')
-        .send('Email validation successful, you may return to the app');
-    } catch (err: any) {
-      res
-        .contentType('text/plain')
-        .send('Something happened while validating your email');
-    }
+    const user = await this.userService.verifyEmailCode(token);
+    return {
+      user,
+      token: await this.authService.generateToken(user),
+    };
   }
 }

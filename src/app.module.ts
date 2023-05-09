@@ -20,6 +20,7 @@ import { APP_GUARD } from '@nestjs/core';
 import AuthGuard from './lib/guard/auth.guard';
 import UserController from './controller/user.controller';
 import EmailService from './service/email.service';
+import RoleGuard from 'src/lib/guard/role.guard';
 
 @Module({
   imports: [],
@@ -48,6 +49,10 @@ import EmailService from './service/email.service';
     {
       provide: APP_GUARD,
       useClass: AuthGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: RoleGuard,
     },
   ],
 })

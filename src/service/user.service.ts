@@ -9,6 +9,8 @@ import { PatchUserDto } from 'src/dto/user/patch-user.dto';
 import { errors } from 'src/lib/errors';
 import EmailService from './email.service';
 import * as crypto from 'crypto';
+import { PaginationQuery } from 'src/lib/pipe/pagination-query.pipe';
+import AdminPatchUserDto from 'src/dto/user/admin-patch-user.dto';
 
 @Injectable()
 export default class UserService {
@@ -97,6 +99,23 @@ export default class UserService {
       where: { userId: id },
       create: data,
       update: data,
+    });
+  }
+
+  async getAllUsers({ take, skip }: PaginationQuery<User>) {
+    return {
+      data: await this.prisma.user.findMany({
+        take,
+        skip,
+      }),
+      total: await this.prisma.user.count(),
+    };
+  }
+
+  async adminPatch(id: number, data: AdminPatchUserDto) {
+    return await this.prisma.user.update({
+      where: { id },
+      data,
     });
   }
 }

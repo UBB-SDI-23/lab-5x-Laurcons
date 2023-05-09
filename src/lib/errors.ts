@@ -30,5 +30,10 @@ export const errors = {
       'InvalidPassword',
       'Your password is invalid',
     ),
+    insufficientPermissions: new AppException(
+      422,
+      'InsufficientPermissions',
+      "You don't have enough permissions to do this action",
+    ),
   },
 };

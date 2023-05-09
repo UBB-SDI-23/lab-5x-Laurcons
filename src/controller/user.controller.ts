@@ -1,9 +1,24 @@
-import { Body, Controller, Get, Param, Patch, Post, Res } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+  Res,
+  UsePipes,
+} from '@nestjs/common';
 import { User } from '@prisma/client';
+import AdminPatchUserDto from 'src/dto/user/admin-patch-user.dto';
 import { PatchProfileDto } from 'src/dto/user/patch-profile.dto';
 import { PatchUserDto } from 'src/dto/user/patch-user.dto';
+import { AllowRoles } from 'src/lib/decorator/allow-roles';
 import { ReqUser } from 'src/lib/decorator/req-user';
 import { AppException } from 'src/lib/errors';
+import PaginationQueryPipe, {
+  PaginationQuery,
+} from 'src/lib/pipe/pagination-query.pipe';
 import UserService from 'src/service/user.service';
 
 @Controller('/user')
@@ -35,5 +50,26 @@ export default class UserController {
       ...data,
       userId: user.id,
     });
+  }
+
+  @AllowRoles(['admin'])
+  @UsePipes(
+    new PaginationQueryPipe({
+      sortableKeys: [],
+    }),
+  )
+  @Get('/')
+  async getAll(@Query() query: PaginationQuery<User>) {
+    return await this.userService.getAllUsers(query);
+  }
+
+  @AllowRoles(['admin'])
+  @Patch('/:id')
+  async modifyRole(
+    @Param('id') id: number | string,
+    @Body() body: AdminPatchUserDto,
+  ) {
+    id = parseInt(id as string);
+    return await this.userService.adminPatch(id, body);
   }
 }

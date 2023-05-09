@@ -16,6 +16,12 @@ enum UserStatus {
   activated
 }
 
+enum UserRole {
+  regular
+  moderator
+  admin
+}
+
 model User {
   id                  Int        @id @default(autoincrement())
   status              UserStatus @default(not_activated)
@@ -23,6 +29,7 @@ model User {
   password            String
   emailActivationCode String?    @unique
   email               String?
+  role                UserRole @default(regular)
 
   profile UserProfile?
   buses Bus[]

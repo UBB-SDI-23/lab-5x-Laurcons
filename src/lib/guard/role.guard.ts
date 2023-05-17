@@ -21,8 +21,6 @@ export default class RoleGuard implements CanActivate {
     const req = context.switchToHttp().getRequest<Request>();
     const user = (req as any).user as User;
 
-    console.log({ user, isPublic, allowedRoles });
-
     if (isPublic) return true;
 
     return allowedRoles ? allowedRoles.includes(user.role) : true;

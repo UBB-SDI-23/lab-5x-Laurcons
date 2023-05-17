@@ -21,6 +21,8 @@ import AuthGuard from './lib/guard/auth.guard';
 import UserController from './controller/user.controller';
 import EmailService from './service/email.service';
 import RoleGuard from 'src/lib/guard/role.guard';
+import AdminController from 'src/controller/admin.controller';
+import AdminService from 'src/service/admin.service';
 
 @Module({
   imports: [],
@@ -33,6 +35,7 @@ import RoleGuard from 'src/lib/guard/role.guard';
     StationController,
     LineStopController,
     StationSignController,
+    AdminController,
   ],
   providers: [
     UserService,
@@ -45,6 +48,7 @@ import RoleGuard from 'src/lib/guard/role.guard';
     StationSignService,
     PrismaService,
     EmailService,
+    AdminService,
     PaginationQueryPipe,
     {
       provide: APP_GUARD,

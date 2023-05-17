@@ -4,6 +4,7 @@ const tryGet = (key: string) => {
 };
 
 export const config = {
+  databaseUrl: tryGet('DATABASE_URL'),
   jwtSecret: tryGet('JWT_SECRET'),
   frontendUrl: tryGet('FRONTEND_URL'),
   email: {

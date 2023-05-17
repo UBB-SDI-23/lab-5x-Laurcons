@@ -30,6 +30,7 @@ model User {
   emailActivationCode String?    @unique
   email               String?
   role                UserRole @default(regular)
+  paginationPreference Int?
 
   profile UserProfile?
   buses Bus[]

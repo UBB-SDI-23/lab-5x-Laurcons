@@ -112,7 +112,7 @@ export default class UserService {
     };
   }
 
-  async adminPatch(id: number, data: AdminPatchUserDto) {
+  async adminPatch(id: number, data: any) {
     return await this.prisma.user.update({
       where: { id },
       data,

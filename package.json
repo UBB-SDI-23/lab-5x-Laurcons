@@ -21,7 +21,6 @@
     "generateuml": "tsuml2 --glob \"./src/**/*\" -m"
   },
   "dependencies": {
-    "@faker-js/faker": "^7.6.0",
     "@nestjs/common": "^9.0.0",
     "@nestjs/core": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
@@ -37,6 +36,7 @@
     "rxjs": "^7.2.0"
   },
   "devDependencies": {
+    "@faker-js/faker": "^7.6.0",
     "@automock/jest": "^1.0.1",
     "@jest/globals": "^29.5.0",
     "@nestjs/cli": "^9.0.0",

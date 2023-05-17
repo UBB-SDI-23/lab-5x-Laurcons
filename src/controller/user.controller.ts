@@ -65,10 +65,7 @@ export default class UserController {
 
   @AllowRoles(['admin'])
   @Patch('/:id')
-  async modifyRole(
-    @Param('id') id: number | string,
-    @Body() body: AdminPatchUserDto,
-  ) {
+  async adminPatch(@Param('id') id: number | string, @Body() body: any) {
     id = parseInt(id as string);
     return await this.userService.adminPatch(id, body);
   }

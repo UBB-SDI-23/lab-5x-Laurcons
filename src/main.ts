@@ -1,4 +1,4 @@
-import { ValidationPipe } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import PrismaService from './service/prisma.service';
@@ -11,8 +11,8 @@ async function bootstrap() {
   app.enableCors();
 
   const swagger = new DocumentBuilder()
-    .setTitle("CTP Manager API")
-    .setVersion("1.0")
+    .setTitle('CTP Manager API')
+    .setVersion('1.0')
     .build();
   const document = SwaggerModule.createDocument(app, swagger);
   SwaggerModule.setup('api', app, document);
@@ -24,6 +24,8 @@ async function bootstrap() {
     await app.close();
   });
 
-  await app.listen(parseInt(process.env.PORT || "3021"));
+  const port = parseInt(process.env.PORT || '3021');
+  await app.listen(port);
+  Logger.log('Listening on port ' + port);
 }
 bootstrap();

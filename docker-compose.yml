@@ -6,7 +6,7 @@ services:
     build:
       dockerfile: Dockerfile.prod
     ports:
-      - '${PORT}:3021'
+      - '${PORT}:${PORT}'
     env_file:
       - .env
     profiles: [prod]

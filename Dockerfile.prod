@@ -1,0 +1,14 @@
+# syntax=docker/dockerfile:1
+FROM node:18
+WORKDIR /code
+
+COPY *.json .
+COPY src src
+COPY prisma prisma
+
+RUN npm i
+RUN npx prisma generate
+RUN npm run build
+RUN npm prune --production
+
+CMD ["node", "dist/main.js"]

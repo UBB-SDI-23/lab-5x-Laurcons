@@ -1,19 +1,21 @@
 version: '3.9'
 services:
   backend-prod:
-    depends_on:
-      - mysql
+    #depends_on:
+    #  - mysql-prod
     build:
       dockerfile: Dockerfile.prod
     ports:
       - '${PORT}:${PORT}'
     env_file:
       - .env
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     profiles: [prod]
 
   backend-local:
     depends_on:
-      - mysql
+      - mysql-local
     build:
       dockerfile: Dockerfile.local
     ports:
@@ -25,22 +27,31 @@ services:
       - ./:/code:rw
     profiles: [local]
 
-  mysql:
+  mysql-local:
     image: mariadb:10.4
     restart: always
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: true
     volumes:
-      # - /home/laur/ubb/mpp/mysqldata:/var/lib/mysql:rw
       - /opt/lampp/var/mysql:/var/lib/mysql:rw
+    profiles: [local]
+
+  mysql-prod:
+    image: mariadb:10.4
+    restart: always
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: true
+    volumes:
+      - '$MYSQL_DATA_DIR:/var/lib/mysql'
+    profiles: [prod]
 
   phpmyadmin:
     depends_on:
-      - mysql
+      - mysql-local
     image: phpmyadmin
     ports:
       - '80:80'
     links:
-      - 'mysql:db'
+      - 'mysql-local:db'
     profiles:
       - local

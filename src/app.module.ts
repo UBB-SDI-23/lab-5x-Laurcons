@@ -23,6 +23,8 @@ import EmailService from './service/email.service';
 import RoleGuard from 'src/lib/guard/role.guard';
 import AdminController from 'src/controller/admin.controller';
 import AdminService from 'src/service/admin.service';
+import { ChatGateway } from 'src/gateway/chat.gateway';
+import { ChatService } from 'src/service/chat.service';
 
 @Module({
   imports: [],
@@ -49,7 +51,9 @@ import AdminService from 'src/service/admin.service';
     PrismaService,
     EmailService,
     AdminService,
+    ChatService,
     PaginationQueryPipe,
+    ChatGateway,
     {
       provide: APP_GUARD,
       useClass: AuthGuard,

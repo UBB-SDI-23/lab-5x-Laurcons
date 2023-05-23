@@ -39,6 +39,7 @@ model User {
   lines Line[]
   lineStops LineStop[]
   stationSigns StationSign[]
+  chatMessages ChatMessage[]
 }
 
 model UserProfile {
@@ -141,4 +142,14 @@ model StationSign {
 
   ownerId       Int @default(0)
   owner   User   @relation(fields: [ownerId], references: [id])
+}
+
+model ChatMessage {
+  id    Int @id @default(autoincrement())
+  userId Int?
+  nickname String
+  text String
+  timestamp DateTime
+
+  user User? @relation(fields: [userId], references: [id])
 }

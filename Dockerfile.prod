@@ -7,9 +7,8 @@ COPY src src
 COPY prisma prisma
 
 RUN npm i
-RUN npx prisma migrate deploy
 RUN npx prisma generate
 RUN npm run build
 RUN npm prune --production
 
-CMD ["node", "dist/main.js"]
+CMD npx prisma migrate deploy && node dist/main.js

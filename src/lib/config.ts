@@ -11,4 +11,7 @@ export const config = {
     from: tryGet('FROM_EMAIL'),
     pass: tryGet('SMTP_PASS'),
   },
+  learning: {
+    url: tryGet('LEARNING_URL'),
+  },
 };

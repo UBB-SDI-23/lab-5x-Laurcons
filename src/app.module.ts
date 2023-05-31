@@ -25,6 +25,7 @@ import AdminController from 'src/controller/admin.controller';
 import AdminService from 'src/service/admin.service';
 import { ChatGateway } from 'src/gateway/chat.gateway';
 import { ChatService } from 'src/service/chat.service';
+import LearningService from 'src/service/learning.service';
 
 @Module({
   imports: [],
@@ -52,6 +53,7 @@ import { ChatService } from 'src/service/chat.service';
     EmailService,
     AdminService,
     ChatService,
+    LearningService,
     PaginationQueryPipe,
     ChatGateway,
     {

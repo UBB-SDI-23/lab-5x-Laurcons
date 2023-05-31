@@ -10,7 +10,7 @@ services:
     env_file:
       - .env
     extra_hosts:
-      - "host.docker.internal:host-gateway"
+      - 'host.docker.internal:host-gateway'
     profiles: [prod]
 
   backend-local:
@@ -55,3 +55,11 @@ services:
       - 'mysql-local:db'
     profiles:
       - local
+
+  backend-learning:
+    build:
+      context: learning
+      dockerfile: Dockerfile
+    profiles:
+      - local
+      - prod

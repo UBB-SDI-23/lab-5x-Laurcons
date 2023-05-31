@@ -20,12 +20,16 @@ import { errors } from 'src/lib/errors';
 import PaginationQueryPipe, {
   PaginationQuery,
 } from 'src/lib/pipe/pagination-query.pipe';
+import LearningService from 'src/service/learning.service';
 import { LineService } from 'src/service/line.service';
 
 @ApiTags('line')
 @Controller('line')
 export class LineController {
-  constructor(private lineService: LineService) {}
+  constructor(
+    private lineService: LineService,
+    private learningService: LearningService,
+  ) {}
 
   @Public()
   @Get('')
@@ -87,5 +91,21 @@ export class LineController {
       if (entity.ownerId !== user.id) throw errors.user.insufficientPermissions;
     }
     return this.lineService.removeOne(id);
+  }
+
+  @Get(':id/estimations')
+  async getBusCountEstimations(@Param('id') id: string | number) {
+    id = parseInt(id as string);
+    const line = await this.lineService.findOne(id);
+    const [diesel, cable, battery] = await Promise.all(
+      ['diesel', 'cable_electric', 'battery_electric'].map((fuel) =>
+        this.learningService.estimateValues(fuel, [line.monthlyRidership]),
+      ),
+    );
+    return {
+      diesel,
+      cable,
+      battery,
+    };
   }
 }

@@ -18,18 +18,19 @@ export class LineService {
         monthlyRidership: { gte: monthlyRidershipMin },
       }),
     };
+    const data = await this.prisma.line.findMany({
+      take,
+      skip,
+      where,
+      include: {
+        endGarage: true,
+        startGarage: true,
+        lineStops: { include: { station: true } },
+        owner: true,
+      },
+    });
     return {
-      data: await this.prisma.line.findMany({
-        take,
-        skip,
-        where,
-        include: {
-          endGarage: true,
-          startGarage: true,
-          lineStops: { include: { station: true } },
-          owner: true,
-        },
-      }),
+      data,
       total: await this.prisma.line.count({ where }),
     };
   }

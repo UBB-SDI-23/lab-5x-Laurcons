@@ -93,6 +93,7 @@ export class LineController {
     return this.lineService.removeOne(id);
   }
 
+  @Public()
   @Get(':id/estimations')
   async getBusCountEstimations(@Param('id') id: string | number) {
     id = parseInt(id as string);

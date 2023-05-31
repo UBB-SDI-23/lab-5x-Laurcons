@@ -9,4 +9,4 @@ fake*.sql
 src/scripts/**/*.js
 
 learning/.venv
-learning/dmp
+# learning/dmp
